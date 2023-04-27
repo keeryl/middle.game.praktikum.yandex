@@ -1,0 +1,23 @@
+.header {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  flex: auto;
+  min-width: 0;
+}
+
+.navLink {
+  color: #407bff !important;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 100%;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
