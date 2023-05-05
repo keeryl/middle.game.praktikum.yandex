@@ -1,12 +1,11 @@
-import { useState, useCallback } from 'react';
-import { validate } from 'react-email-validator';
+import { useState, useCallback } from 'react'
+import { validate } from 'react-email-validator'
 
 type Validators = {
   [key: string]: Record<string, (arg: string) => boolean>
-};
+}
 
 const useFormWithValidation = () => {
-
   const [formValues, setFormValues] = useState({
     userName: '',
     userSurname: '',
@@ -14,7 +13,7 @@ const useFormWithValidation = () => {
     userEmail: '',
     userPhone: '',
     password: '',
-  });
+  })
 
   const [errors, setErrors] = useState({
     userName: {
@@ -40,13 +39,14 @@ const useFormWithValidation = () => {
     password: {
       required: false,
       format: false,
-    }
-  });
+    },
+  })
 
   const validators: Validators = {
     userName: {
       required: (value: string): boolean => /\S/i.test(value),
-      format: (value: string): boolean => /^[A-ZА-ЯЁ]{1}[a-zа-яё]{2,15}$/.test(value),
+      format: (value: string): boolean =>
+        /^[A-ZА-ЯЁ]{1}[a-zа-яё]{2,15}$/.test(value),
     },
     userSurname: {
       required: (value: string): boolean => /\S/i.test(value),
@@ -66,29 +66,32 @@ const useFormWithValidation = () => {
     },
     password: {
       required: (value: string): boolean => /\S/i.test(value),
-      format: (value: string): boolean => /^(?=.*?[0-9])(?=.*?[A-Z])[\S]{8,40}$/.test(value),
-    }
-  };
+      format: (value: string): boolean =>
+        /^(?=.*?[0-9])(?=.*?[A-Z])[\S]{8,40}$/.test(value),
+    },
+  }
 
-  const handleInputChange = useCallback((e: Event) => {
-    const { value, name } = e.target as HTMLInputElement;
-    validateInput(name, value);
-    setFormValues((prevState) => ({ ...prevState, [name]:value }));
-  }, [setFormValues]);
+  const handleInputChange = useCallback(
+    (e: Event) => {
+      const { value, name } = e.target as HTMLInputElement
+      validateInput(name, value)
+      setFormValues(prevState => ({ ...prevState, [name]: value }))
+    },
+    [setFormValues]
+  )
 
   const validateInput = (inputName: string, inputValue: string) => {
-    const ValidationRes = Object.keys(validators[inputName]).map(
-      errorKey => {
-        const errorResult = validators[inputName][errorKey](inputValue);
-        return { [errorKey]: errorResult };
-      }
-    ).reduce((acc, el) => ({ ...acc, ...el }), {});
+    const ValidationRes = Object.keys(validators[inputName])
+      .map(errorKey => {
+        const errorResult = validators[inputName][errorKey](inputValue)
+        return { [errorKey]: errorResult }
+      })
+      .reduce((acc, el) => ({ ...acc, ...el }), {})
 
-    setErrors((prevState) => ({
+    setErrors(prevState => ({
       ...prevState,
       [inputName]: ValidationRes,
-    }));
-
+    }))
   }
 
   const resetForm = () => {
@@ -99,7 +102,7 @@ const useFormWithValidation = () => {
       userEmail: '',
       userPhone: '',
       password: '',
-    });
+    })
 
     setErrors({
       userName: {
@@ -125,12 +128,11 @@ const useFormWithValidation = () => {
       password: {
         required: false,
         format: false,
-      }
-    });
+      },
+    })
   }
 
-  return [ formValues, setFormValues, errors, handleInputChange, resetForm ];
-
+  return [formValues, setFormValues, errors, handleInputChange, resetForm]
 }
 
-export default useFormWithValidation;
+export default useFormWithValidation
