@@ -1,3 +1,4 @@
+import React from 'react'
 import { createBrowserRouter, RouterProvider as Router } from 'react-router-dom'
 import { Main } from '../../layouts/Main'
 import { Landing } from '../../pages/Landing'
