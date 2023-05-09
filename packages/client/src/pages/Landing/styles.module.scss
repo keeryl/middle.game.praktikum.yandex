@@ -1,0 +1,68 @@
+.container {
+    padding: 147px 124px 74px;
+
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        margin: 0;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 48px;
+        line-height: 56px;
+        color: var(--text-black);
+
+        &__gameName {
+            color: var(--text-blue);
+        }
+    }
+
+    &__button {
+        width: 345px;
+        height: 43px;
+        margin-top: 32px;
+        margin-bottom: 132px;
+    }
+
+    &__subtitle {
+        margin: 0;
+        margin-bottom: 132px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 38px;
+        color: var(--text-black);
+    }
+
+    &__team {
+        margin: 0 auto;
+        margin-bottom: 37px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 38px;
+        color: var(--text-black);
+
+        align-self: center;
+    }
+
+    &__teamCircles {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__developmentTeam {
+        margin-bottom: 137px;
+    }
+
+    &__supportTeam {
+        margin: 0 auto;
+        width: 30%;
+    }
+}

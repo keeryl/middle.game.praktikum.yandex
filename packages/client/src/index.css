@@ -1,3 +1,8 @@
+:root {
+  --text-black: #000000;
+  --text-blue: #407BFF;
+}
+
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
