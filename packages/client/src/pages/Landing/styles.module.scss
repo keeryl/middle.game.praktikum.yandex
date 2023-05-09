@@ -1,6 +1,7 @@
 .container {
+    width: 60%;
+    margin: 0 auto;
     padding: 147px 124px 74px;
-
     display: flex;
     flex-direction: column;
 
@@ -55,6 +56,10 @@
     &__teamCircles {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        div {
+            margin-bottom: 10px;
+        }
     }
 
     &__developmentTeam {
@@ -62,6 +67,37 @@
     }
 
     &__supportTeam {
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 800px) {
+    .container {
+        &__title {
+            font-size: 36px;
+        }
+
+        &__subtitle {
+            font-size: 20px;
+        }
+
+        &__team {
+            font-size: 20px;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        &__button {
+            width: 250px;
+        }
         margin: 0 auto;
         width: 30%;
     }
