@@ -1,7 +1,7 @@
 .container {
     width: 60%;
     margin: 0 auto;
-    padding: 147px 124px 74px;
+    padding: 147px 0 74px;
     display: flex;
     flex-direction: column;
 
@@ -57,6 +57,7 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+
         div {
             margin-bottom: 10px;
         }
@@ -98,7 +99,5 @@
         &__button {
             width: 250px;
         }
-        margin: 0 auto;
-        width: 30%;
     }
 }
