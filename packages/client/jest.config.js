@@ -10,5 +10,6 @@ export default {
   },
   moduleNameMapper: {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '\\.(png)$': 'identity-obj-proxy',
   },
 }

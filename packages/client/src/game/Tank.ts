@@ -1,11 +1,15 @@
 export class Tank {
   canvas: HTMLCanvasElement
   context: CanvasRenderingContext2D
-  position: { x: number, y: number}
+  position: { x: number; y: number }
   static step = 80
   static size = 80
 
-  constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, position: { x: number, y: number}) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+    position: { x: number; y: number }
+  ) {
     this.canvas = canvas
     this.context = context
     this.position = position

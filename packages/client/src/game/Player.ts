@@ -1,7 +1,11 @@
 import { Tank } from './Tank'
 
 export class Player extends Tank {
-  constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, position: { x: number, y: number}) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+    position: { x: number; y: number }
+  ) {
     super(canvas, context, position)
     this.position = position
   }

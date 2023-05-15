@@ -40,23 +40,33 @@ export class World {
     })
   }
 
-  private spawnPlayer(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
-    this.player = new Player(canvas, context, getInitialPositions(canvas).PLAYER)
+  private spawnPlayer(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D
+  ) {
+    this.player = new Player(
+      canvas,
+      context,
+      getInitialPositions(canvas).PLAYER
+    )
     this.player.render()
   }
 
-  private spawnEnemies(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
+  private spawnEnemies(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D
+  ) {
     getInitialPositions(canvas).ENEMIES.forEach(position => {
       this.enemies.push(new Enemy(canvas, context, position))
     })
 
-    this.enemies.forEach((enemy) => enemy.render())
+    this.enemies.forEach(enemy => enemy.render())
   }
 
   private rerender() {
     this.view.update()
     this.player.render()
-    this.enemies.forEach((enemy) => enemy.render())
+    this.enemies.forEach(enemy => enemy.render())
   }
 
   public init() {

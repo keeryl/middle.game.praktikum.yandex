@@ -1,103 +1,98 @@
 .container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 147px 0 74px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 147px 0 74px;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 56px;
+    color: var(--text-black);
+
+    &__gameName {
+      color: var(--text-blue);
+    }
+  }
+
+  &__button {
+    width: 345px;
+    height: 43px;
+    margin-top: 32px;
+    margin-bottom: 132px;
+  }
+
+  &__subtitle {
+    margin: 0 0 132px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--text-black);
+  }
+
+  &__team {
+    margin: 0 auto 37px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--text-black);
+
+    align-self: center;
+  }
+
+  &__teamCircles {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-    &__title {
-        margin: 0;
-
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 48px;
-        line-height: 56px;
-        color: var(--text-black);
-
-        &__gameName {
-            color: var(--text-blue);
-        }
+    div {
+      margin-bottom: 10px;
     }
+  }
 
-    &__button {
-        width: 345px;
-        height: 43px;
-        margin-top: 32px;
-        margin-bottom: 132px;
-    }
+  &__developmentTeam {
+    margin-bottom: 137px;
+  }
 
-    &__subtitle {
-        margin: 0;
-        margin-bottom: 132px;
-
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 32px;
-        line-height: 38px;
-        color: var(--text-black);
-    }
-
-    &__team {
-        margin: 0 auto;
-        margin-bottom: 37px;
-
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 38px;
-        color: var(--text-black);
-
-        align-self: center;
-    }
-
-    &__teamCircles {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        div {
-            margin-bottom: 10px;
-        }
-    }
-
-    &__developmentTeam {
-        margin-bottom: 137px;
-    }
-
-    &__supportTeam {
-        justify-content: space-around;
-    }
+  &__supportTeam {
+    justify-content: space-around;
+  }
 }
 
 @media (max-width: 1000px) {
-    .container {
-        width: 80%;
-    }
+  .container {
+    width: 80%;
+  }
 }
 
 @media (max-width: 800px) {
-    .container {
-        &__title {
-            font-size: 36px;
-        }
-
-        &__subtitle {
-            font-size: 20px;
-        }
-
-        &__team {
-            font-size: 20px;
-        }
+  .container {
+    &__title {
+      font-size: 36px;
     }
+
+    &__subtitle {
+      font-size: 20px;
+    }
+
+    &__team {
+      font-size: 20px;
+    }
+  }
 }
 
 @media (max-width: 500px) {
-    .container {
-        &__button {
-            width: 250px;
-        }
+  .container {
+    &__button {
+      width: 250px;
     }
+  }
 }

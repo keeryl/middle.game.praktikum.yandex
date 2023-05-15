@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import AuthApi from '../../api/AuthApi'
 import { Link, useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Typography, message } from 'antd'
 import styles from './login.module.css'
 import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
 import { LOGIN_REGEXP, PASSWORD_REGEXP } from '../../utils/validationRegExps'
+import { authController } from '../../controllers/AuthController'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -13,11 +13,12 @@ const Login = () => {
 
   const handleSubmit = (data: { login: string; password: string }) => {
     setIsLoading(true)
-    AuthApi.signin(data)
+    authController
+      .signin(data)
       .then(() => {
         message.success('Авторизация прошла успешно', 3)
         setTimeout(() => {
-          AuthApi.fetchUser()
+          authController.fetchUser()
           navigate('/game')
         }, 1000)
       })

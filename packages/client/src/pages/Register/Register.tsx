@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
-import AuthApi from '../../api/AuthApi'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Typography, message } from 'antd'
-import { SignupData } from '../../api/AuthApi'
 import styles from './register.module.css'
 import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
 import {
@@ -14,6 +12,8 @@ import {
   ONLY_LETTERS,
   ONLY_DIGITS,
 } from '../../utils/validationRegExps'
+import { authController } from '../../controllers/AuthController'
+import { SignupData } from '../../api/AuthApi/types'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -22,11 +22,12 @@ const Register = () => {
 
   const handleSubmit = (data: SignupData) => {
     setIsLoading(true)
-    AuthApi.signup(data)
+    authController
+      .signup(data)
       .then(() => {
         message.success('Регистрация прошла успешно', 3)
         setTimeout(() => {
-          AuthApi.fetchUser()
+          authController.fetchUser()
           navigate('/game')
         }, 1000)
       })

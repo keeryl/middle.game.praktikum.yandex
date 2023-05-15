@@ -1,81 +1,80 @@
 .container {
-    margin-top: 32px;
-    padding: 10px;
+  margin-top: 32px;
+  padding: 10px;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .alignContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
 
-    .alignContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+  &__title {
+    margin: 0;
+    margin-bottom: 164px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 75px;
+    letter-spacing: 0.1em;
+    color: var(--text-blue);
+    text-align: center;
+  }
+
+  &__subtitle {
+    margin: 0;
+    margin-bottom: 20px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--text-black);
+  }
+
+  &__score {
+    margin: 0;
+    margin-bottom: 20px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--text-black);
+
+    span {
+      color: var(--text-green);
     }
-  
-    &__title {
-        margin: 0;
-        margin-bottom: 164px;
+  }
 
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 64px;
-        line-height: 75px;
-        letter-spacing: 0.1em;
-        color: var(--text-blue);
-        text-align: center;
-    }
-
-    &__subtitle {
-        margin: 0;
-        margin-bottom: 20px;
-
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 32px;
-        line-height: 38px;
-        color: var(--text-black);
-    }
-
-    &__score {
-        margin: 0;
-        margin-bottom: 20px;
-
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-        color: var(--text-black);
-
-        span {
-            color: var(--text-green);
-        }
-    }
-
-    &__button {
-        width: 345px;
-        height: 43px;
-        margin-bottom: 10px;
-    }
+  &__button {
+    width: 345px;
+    height: 43px;
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 800px) {
-    .container {
-        &__title {
-            margin-bottom: 140px;
+  .container {
+    &__title {
+      margin-bottom: 140px;
 
-            font-size: 40px;
-        }
+      font-size: 40px;
     }
-
+  }
 }
 
 @media (max-width: 600px) {
-    .container {
-        &__button {
-            width: 300px;
-        }
+  .container {
+    &__button {
+      width: 300px;
     }
+  }
 }

@@ -1,51 +1,50 @@
-import {  Table  } from "antd";
-
+import { Table } from 'antd'
 
 const data = [
   {
-    position: "1",
-    display_name: "Игрок1",
-    totalScore: "100",
-    countGame: "10",
-    winnerCount: "10",
-    defeatCount: "10",
-    winRate: "100"
+    position: '1',
+    display_name: 'Игрок1',
+    totalScore: '100',
+    countGame: '10',
+    winnerCount: '10',
+    defeatCount: '10',
+    winRate: '100',
   },
   {
-    position: "2",
-    display_name: "Игрок2",
-    totalScore: "90",
-    countGame: "10",
-    winnerCount: "9",
-    defeatCount: "1",
-    winRate: "90"
+    position: '2',
+    display_name: 'Игрок2',
+    totalScore: '90',
+    countGame: '10',
+    winnerCount: '9',
+    defeatCount: '1',
+    winRate: '90',
   },
   {
-    position: "3",
-    display_name: "Игрок3",
-    totalScore: "80",
-    countGame: "10",
-    winnerCount: "8",
-    defeatCount: "2",
-    winRate: "80"
+    position: '3',
+    display_name: 'Игрок3',
+    totalScore: '80',
+    countGame: '10',
+    winnerCount: '8',
+    defeatCount: '2',
+    winRate: '80',
   },
   {
-    position: "4",
-    display_name: "Игрок4",
-    totalScore: "70",
-    countGame: "10",
-    winnerCount: "7",
-    defeatCount: "3",
-    winRate: "70"
+    position: '4',
+    display_name: 'Игрок4',
+    totalScore: '70',
+    countGame: '10',
+    winnerCount: '7',
+    defeatCount: '3',
+    winRate: '70',
   },
-];
+]
 
 export const Leaderboard = () => {
   const columns = [
     {
       title: 'Позиция',
       dataIndex: 'position',
-      key: 'position',      
+      key: 'position',
     },
     {
       title: 'Никнейм',
@@ -77,12 +76,6 @@ export const Leaderboard = () => {
       key: 'winRate',
       dataIndex: 'winRate',
     },
-  ];
-  return <Table columns={columns} dataSource={data} />; 
+  ]
+  return <Table columns={columns} dataSource={data} />
 }
-
-
-
-
-
-
