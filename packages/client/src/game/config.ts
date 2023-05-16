@@ -9,5 +9,5 @@ export const getInitialPositions: (canvas: HTMLCanvasElement) => {
     { x: canvas.width / 2 - 40, y: 0 },
     { x: canvas.width - 80, y: 0 },
   ],
-  PLAYER: { x: 160, y: 160 },
+  PLAYER: { x: 160, y: 720 },
 })
