@@ -25,7 +25,9 @@ const userSlice = createSlice({
     isLoggedIn: false,
     isLoading: false,
   } as UserState,
-  reducers: {},
+  reducers: {
+    someFutureReducer: () => {},
+  },
   extraReducers: builder => {
     builder.addCase(fetchUser.pending, state => {
       state.isLoading = true
