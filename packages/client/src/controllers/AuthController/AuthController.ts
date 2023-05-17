@@ -42,6 +42,7 @@ class AuthController {
       alert(e)
     }
   }
+
 }
 
 export const authController = new AuthController()
