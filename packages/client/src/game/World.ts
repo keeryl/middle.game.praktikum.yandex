@@ -3,6 +3,7 @@ import { Enemy } from './Enemy'
 import { Player } from './Player'
 import { Bullet } from './Bullet'
 import { getInitialPositions } from './config'
+import { Tank } from './Tank'
 
 export class World {
   canvas: HTMLCanvasElement
@@ -11,10 +12,6 @@ export class World {
   player: Player
   enemies: Enemy[]
   bullets: Bullet[]
-  animation: {
-    startTime: number,
-    animationTime: number,
-  }
 
   constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     this.canvas = canvas
@@ -27,10 +24,6 @@ export class World {
     this.bullets = []
     this.spawnPlayer(canvas, context)
     this.spawnEnemies(canvas, context)
-    this.animation = {
-      startTime: 0,
-      animationTime: 5000,
-    };
     this.setEventListeners()
   }
 
@@ -39,8 +32,6 @@ export class World {
       if (e.code === 'ArrowUp') {
         this.player.moveUp()
         this.rerender()
-        // this.animation.startTime = performance.now();
-        // this.animate();
       }
       if (e.code === 'ArrowDown') {
         this.player.moveDown()
@@ -55,23 +46,10 @@ export class World {
         this.rerender()
       }
       if (e.code === 'Space') {
-        this.spanBullet(this.canvas, this.context)        
+        this.spanBullet(this.canvas, this.context)
       }
     })
   }
-
-  public animate() {
-    const time = performance.now();
-    const shiftTime = time - this.animation.startTime;
-    const multiply = shiftTime / this.animation.animationTime;
-
-    this.player.moveUp()
-    this.rerender()
-
-    if (multiply < 1) {
-      requestAnimationFrame(this.animate.bind(this));
-    }
-  };
 
   private spawnPlayer(
     canvas: HTMLCanvasElement,
@@ -80,7 +58,7 @@ export class World {
     this.player = new Player(
       canvas,
       context,
-      getInitialPositions(canvas).PLAYER
+      getInitialPositions().PLAYER
     )
     this.player.render()
   }
@@ -89,7 +67,7 @@ export class World {
     canvas: HTMLCanvasElement,
     context: CanvasRenderingContext2D
   ) {
-    getInitialPositions(canvas).ENEMIES.forEach(position => {
+    getInitialPositions().ENEMIES.forEach(position => {
       this.enemies.push(new Enemy(canvas, context, position))
     })
 
@@ -100,15 +78,83 @@ export class World {
     canvas: HTMLCanvasElement,
     context: CanvasRenderingContext2D
   ) {
-    this.bullets.push(new Bullet(canvas, context, this.player.position))
+    const bulletStartPosition = this.createBulletStartPosition();
+    const bullet = new Bullet(canvas, context, bulletStartPosition!)
+    this.bullets.push(bullet)
+    this.animateBullet(bullet, this.player.direction);
+  }
 
-    this.bullets.forEach(bullet => bullet.render())
+  public animateBullet(bullet: Bullet, bulletDirection: string) {
+    // @ts-ignore
+    bullet[bulletDirection]();
+
+    for (let i = 0; i < this.enemies.length; i++) {
+      if (this.identifyHits(this.enemies[i], bullet, bulletDirection)) {
+        bullet.flying = false;
+        this.enemies.splice(i, 1);
+        break;
+      }
+    }
+
+    this.rerender()
+
+    if (bullet.flying) {
+      requestAnimationFrame(this.animateBullet.bind(this, bullet, bulletDirection));
+    }
+  };
+
+  private identifyHits(enemy: Enemy, bullet: Bullet, bulletDirection: string) {
+    if (bulletDirection = 'moveUp') {
+      if (bullet.position.y <= enemy.position.y + Tank.size && bullet.position.x + Bullet.size > enemy.position.x && bullet.position.x < enemy.position.x + Tank.size) {
+        return true;
+      }
+    } else if (bulletDirection = 'moveDown') {
+      if (bullet.position.y + Bullet.size >= enemy.position.y && bullet.position.x + Bullet.size > enemy.position.x && bullet.position.x < enemy.position.x + Tank.size) {
+        return true;
+      }
+    } else if (bulletDirection = 'moveLeft') {
+      if (bullet.position.x <= enemy.position.x + Tank.size && bullet.position.y + Bullet.size > enemy.position.y && bullet.position.y < enemy.position.y + Tank.size) {
+        return true;
+      }
+    } else if (bulletDirection = 'moveRight') {
+      if (bullet.position.x >= enemy.position.x  && bullet.position.y + Bullet.size > enemy.position.y && bullet.position.y < enemy.position.y + Tank.size) {
+        return true;
+      }
+    }
+  }
+
+  private createBulletStartPosition() {
+    if (this.player.direction === 'moveUp') {
+      return {
+        x: this.player.position.x + (Tank.size - Bullet.size) / 2,
+        y: this.player.position.y, 
+      }
+    } 
+    if (this.player.direction === 'moveDown') {
+      return {
+        x: this.player.position.x + (Tank.size - Bullet.size) / 2,
+        y: this.player.position.y + Tank.size, 
+      }
+    } 
+    if (this.player.direction === 'moveLeft') {
+      return {
+        x: this.player.position.x,
+        y: this.player.position.y + (Tank.size - Bullet.size) / 2, 
+      }
+    }
+    if (this.player.direction === 'moveRight') {
+      return {
+        x: this.player.position.x + Tank.size,
+        y: this.player.position.y + (Tank.size - Bullet.size) / 2, 
+      }
+    }
   }
 
   private rerender() {
     this.view.update()
     this.player.render()
     this.enemies.forEach(enemy => enemy.render())
+    this.bullets = this.bullets.filter((item) => item.flying);
     this.bullets.forEach(bullet => bullet.render())
   }
 
