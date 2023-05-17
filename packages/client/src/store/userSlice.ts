@@ -26,7 +26,9 @@ const userSlice = createSlice({
     isLoading: false,
   } as UserState,
   reducers: {
-    someFutureReducer: () => {},
+    someFutureReducer: () => {
+      console.log('f')
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchUser.pending, state => {
@@ -60,5 +62,4 @@ const userSlice = createSlice({
   },
 })
 
-export const {} = userSlice.actions
 export default userSlice.reducer
