@@ -104,19 +104,19 @@ export class World {
   };
 
   private identifyHits(enemy: Enemy, bullet: Bullet, bulletDirection: string) {
-    if (bulletDirection = 'moveUp') {
+    if (bulletDirection === 'moveUp') {
       if (bullet.position.y <= enemy.position.y + Tank.size && bullet.position.x + Bullet.size > enemy.position.x && bullet.position.x < enemy.position.x + Tank.size) {
         return true;
       }
-    } else if (bulletDirection = 'moveDown') {
+    } else if (bulletDirection === 'moveDown') {
       if (bullet.position.y + Bullet.size >= enemy.position.y && bullet.position.x + Bullet.size > enemy.position.x && bullet.position.x < enemy.position.x + Tank.size) {
         return true;
       }
-    } else if (bulletDirection = 'moveLeft') {
+    } else if (bulletDirection === 'moveLeft') {
       if (bullet.position.x <= enemy.position.x + Tank.size && bullet.position.y + Bullet.size > enemy.position.y && bullet.position.y < enemy.position.y + Tank.size) {
         return true;
       }
-    } else if (bulletDirection = 'moveRight') {
+    } else if (bulletDirection === 'moveRight') {
       if (bullet.position.x >= enemy.position.x  && bullet.position.y + Bullet.size > enemy.position.y && bullet.position.y < enemy.position.y + Tank.size) {
         return true;
       }
