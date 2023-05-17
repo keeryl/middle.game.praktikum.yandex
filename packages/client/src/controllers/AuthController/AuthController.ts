@@ -27,7 +27,17 @@ class AuthController {
 
   public async fetchUser() {
     try {
-      await this.api.fetchUser()
+      const res = await this.api.fetchUser()
+      return res
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  public async logOut() {
+    try {
+      const res = await this.api.logOut()
+      return res
     } catch (e) {
       alert(e)
     }
