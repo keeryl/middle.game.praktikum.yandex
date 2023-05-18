@@ -8,6 +8,6 @@ export interface UserUpdateRequestData {
 }
 
 export interface UserUpdatePasswordRequestData {
-oldPassword: string
-newPassword: string
+  oldPassword: string
+  newPassword: string
 }

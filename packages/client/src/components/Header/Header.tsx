@@ -3,8 +3,8 @@ import { Dropdown, Layout, Menu, MenuProps } from 'antd'
 import s from './styles.module.scss'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { useAppSelector } from '../../store/hooks';
-
+import { useAppSelector } from '../../store/hooks'
+import { selectUserData } from '../../store/userSelectors'
 
 const navConfig: { label: string; path: string }[] = [
   { label: 'Главная', path: '/' },
@@ -42,7 +42,7 @@ const dropDownItems: MenuProps['items'] = [
 ]
 
 export const Header = () => {
-  const user = useAppSelector(state => state.user.data);
+  const user = useAppSelector(selectUserData)
   const { pathname } = useLocation()
   const [currentPath, setCurrentPath] = useState<string>(
     navConfig.find(item => item.path === pathname)?.label as string
@@ -63,7 +63,7 @@ export const Header = () => {
         className={s.nav}
       />
       <Dropdown menu={{ items: dropDownItems }}>
-        <div>{user&& user.login}</div>
+        <div>{!!user && user.login}</div>
       </Dropdown>
     </Layout.Header>
   )

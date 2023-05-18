@@ -38,8 +38,7 @@ export class UserApi {
   public updateUserAvatar(data: FormData) {
     return fetch(`${this.baseUrl}/profile/avatar`, {
       method: 'PUT',
-      body: data
+      body: data,
     }).then(this.checkResponse)
   }
-
 }
