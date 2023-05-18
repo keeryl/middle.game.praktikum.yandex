@@ -5,9 +5,9 @@ export const getInitialPositions: () => {
   PLAYER: Coords
 } = () => ({
   ENEMIES: [
-    { x: 40, y: 0 },
-    { x: 380, y: 240 },
-    { x: 680, y: 400 },
+    { x: 80, y: 0 },
+    { x: 400, y: 240 },
+    { x: 640, y: 400 },
   ],
   PLAYER: { x: 160, y: 720 },
 })
