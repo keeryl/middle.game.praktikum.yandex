@@ -22,6 +22,7 @@ export class UserApi {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     }).then(this.checkResponse)
   }
 
@@ -32,6 +33,7 @@ export class UserApi {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     }).then(this.checkResponse)
   }
 
@@ -39,6 +41,7 @@ export class UserApi {
     return fetch(`${this.baseUrl}/profile/avatar`, {
       method: 'PUT',
       body: data,
+      credentials: 'include',
     }).then(this.checkResponse)
   }
 }

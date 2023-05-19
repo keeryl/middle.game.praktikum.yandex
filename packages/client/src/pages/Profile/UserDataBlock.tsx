@@ -66,6 +66,11 @@ export const UserDataBlock = () => {
         </Row>
         <Divider orientation="left"></Divider>
         <Row justify="space-around">
+          <Col span={4}>Фамилия</Col>
+          {!!user && <Col span={4}>{user.second_name}</Col>}
+        </Row>
+        <Divider orientation="left"></Divider>
+        <Row justify="space-around">
           <Col span={4}>Телефон</Col>
           {!!user && <Col span={4}>{user.phone}</Col>}
         </Row>
