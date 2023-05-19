@@ -24,11 +24,9 @@ export class Tank {
   }
 
   public moveDown() {
-    console.log(this.position.y);
     if (this.position.y + Tank.step + Tank.size > this.canvas.height) return
     this.position.y += Tank.step
     this.direction = 'moveDown';
-    console.log(this.position.y);    
   }
 
   public moveLeft() {

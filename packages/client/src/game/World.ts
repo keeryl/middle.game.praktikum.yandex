@@ -47,10 +47,8 @@
 //           if (this.identifyHits(this.enemies[i], this.player, this.player.direction)) {
 //             console.log("врезались");
 //             const savedPlayerDirection = this.player.direction
-//             this.tankBackDraft();
+//             this.tankGoBack();
 //             this.player.direction = savedPlayerDirection;
-//             console.log(this.player.position);
-
 //             break;
 //           }
 //         }
@@ -97,21 +95,7 @@
 //   }
 
 //   public animateBullet(bullet: Bullet, bulletDirection: string) {
-//     // bullet[bulletDirection]();
-//     switch(bulletDirection) {
-//       case('moveUp'):
-//       bullet.moveUp();
-//       break
-//       case('moveDown'):
-//       bullet.moveDown();
-//       break
-//       case('moveLeft'):
-//       bullet.moveLeft();
-//       break
-//       case('moveRight'):
-//       bullet.moveRight();
-//       break
-//     }
+//     bullet[bulletDirection]();
 
 //     for (let i = 0; i < this.enemies.length; i++) {
 //       if (this.identifyHits(this.enemies[i], bullet, bulletDirection)) {
@@ -130,20 +114,23 @@
 
 //   private identifyHits(enemy: Enemy, object: Bullet | Tank, direction: string) {
 //     const objectClass = object.constructor.name === 'Bullet' ? Bullet : Tank;
+//     if (object.position.y < enemy.position.y + Tank.size && object.position.y + objectClass.size > enemy.position.y && object.position.x + objectClass.size > enemy.position.x && enemy.position.x + Tank.size > object.position.x) {
+//       return true
+//     }
 //     if (direction === 'moveUp') {
-//       if (object.position.y < enemy.position.y + Tank.size && object.position.x + objectClass.size > enemy.position.x && object.position.x < enemy.position.x + Tank.size) {
+//       if (object.position.y < enemy.position.y + Tank.size && object.position.y + objectClass.size > enemy.position.y && object.position.x + objectClass.size > enemy.position.x && object.position.x > enemy.position.x + Tank.size) {
 //         return true;
 //       }
 //     } else if (direction === 'moveDown') {
-//       if (object.position.y + objectClass.size > enemy.position.y && object.position.x + objectClass.size > enemy.position.x && object.position.x < enemy.position.x + Tank.size) {
+//       if (object.position.y + objectClass.size > enemy.position.y && object.position.y < enemy.position.y + Tank.size && object.position.x + objectClass.size > enemy.position.x && object.position.x > enemy.position.x + Tank.size) {
 //         return true;
 //       }
 //     } else if (direction === 'moveLeft') {
-//       if (object.position.x < enemy.position.x + Tank.size && object.position.y + objectClass.size > enemy.position.y && object.position.y < enemy.position.y + Tank.size) {
+//       if (object.position.x < enemy.position.x + Tank.size && object.position.y + objectClass.size > enemy.position.y && object.position.y + objectClass.size < enemy.position.y && object.position.y > enemy.position.y + Tank.size) {
 //         return true;
 //       }
 //     } else if (direction === 'moveRight') {
-//       if (object.position.x + objectClass.size > enemy.position.x && object.position.y + objectClass.size > enemy.position.y && object.position.y < enemy.position.y + Tank.size) {
+//       if (object.position.x + objectClass.size > enemy.position.x && object.position.x > enemy.position.x + objectClass.size && object.position.y + objectClass.size < enemy.position.y && object.position.y > enemy.position.y + Tank.size) {
 //         return true;
 //       }
 //     }
@@ -175,19 +162,23 @@
 //         }
 //   }
 
-//   private tankBackDraft() {
+//   private tankGoBack() {
 //     switch (this.player.direction) {
 //       case ('moveUp'):
 //         this.player.moveDown();
+//         break;
 
 //       case ('moveDown'):
 //         this.player.moveUp();
+//         break;
 
 //       case ('moveLeft'):
-//         this.player.moveLeft();
+//         this.player.moveRight();
+//         break;
 
 //       case ('moveRight'):
-//         this.player.moveRight();
+//         this.player.moveLeft();
+//         break;
 //     }
 //   }
 
