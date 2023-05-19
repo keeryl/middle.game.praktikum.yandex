@@ -44,4 +44,14 @@ export class AuthApi {
       credentials: 'include',
     }).then(this.checkResponse)
   }
+
+  public logOut() {
+    return fetch(`${this.baseUrl}/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    }).then(this.checkResponse)
+  }
 }

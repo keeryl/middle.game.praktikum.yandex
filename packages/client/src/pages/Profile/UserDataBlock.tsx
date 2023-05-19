@@ -1,14 +1,14 @@
 import { Col, Divider, Row, Button, Avatar, Form } from 'antd'
 import styles from './profile.module.css'
-import { USER_DATA } from './const'
 import { useState } from 'react'
-// import { showModalChangePassword, showModalChangeProfile } from "./functions";
+import { useAppSelector } from '../../store/hooks'
 import { ChangePasswordModal } from './ChangePasswordModal'
 import { ChangeProfileModal } from './ChangeProfileModal'
-/* <ChangePasswordModal />
-        <ChangeProfileModal /> */
+import { selectUserData } from '../../store/userSelectors'
+import { BASE_URL_IMG } from '../../utils/constants'
 
 export const UserDataBlock = () => {
+  const user = useAppSelector(selectUserData)
   const [isModalOpenChangeProfile, setIsModalOpenChangeProfile] =
     useState(false)
 
@@ -38,31 +38,41 @@ export const UserDataBlock = () => {
   return (
     <div className={styles.block}>
       <>
-        <Avatar size={128} src={USER_DATA.avatar} />
+        <Avatar
+          size={128}
+          src={!!user && user.avatar ? `${BASE_URL_IMG}${user.avatar}` : ''}
+        />
         <Divider orientation="left"></Divider>
         <Row justify="space-around">
           <Col span={4}>Почта</Col>
-          <Col span={4}>{USER_DATA.email}</Col>
+          {!!user && <Col span={4}>{user.email}</Col>}
         </Row>
         <Divider orientation="left"></Divider>
         <Row justify="space-around">
           <Col span={4}>Логин</Col>
-          <Col span={4}>{USER_DATA.login}</Col>
+          {!!user && <Col span={4}>{user.login}</Col>}
         </Row>
         <Divider orientation="left"></Divider>
         <Row justify="space-around">
           <Col span={4}>Никнейм</Col>
-          <Col span={4}>{USER_DATA.display_name}</Col>
+          {!!user && (
+            <Col span={4}>{user.display_name ? user.display_name : '-'}</Col>
+          )}
         </Row>
         <Divider orientation="left"></Divider>
         <Row justify="space-around">
           <Col span={4}>Имя</Col>
-          <Col span={4}>{USER_DATA.first_name}</Col>
+          {!!user && <Col span={4}>{user.first_name}</Col>}
+        </Row>
+        <Divider orientation="left"></Divider>
+        <Row justify="space-around">
+          <Col span={4}>Фамилия</Col>
+          {!!user && <Col span={4}>{user.second_name}</Col>}
         </Row>
         <Divider orientation="left"></Divider>
         <Row justify="space-around">
           <Col span={4}>Телефон</Col>
-          <Col span={4}>{USER_DATA.phone}</Col>
+          {!!user && <Col span={4}>{user.phone}</Col>}
         </Row>
 
         <div className={styles.buttonblock}>

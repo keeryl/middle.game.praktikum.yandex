@@ -1,5 +1,7 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider as Router } from 'react-router-dom'
+import { useAppDispatch } from '../../store/hooks'
+import { fetchUser } from '../../store/userSlice'
 import { Main } from '../../layouts/Main'
 import { Landing } from '../../pages/Landing'
 import { Forum } from '../../pages/Forum'
@@ -58,5 +60,11 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchUser())
+  }, [])
+
   return <Router router={router} />
 }
