@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider as Router } from 'react-router-dom'
 import { useAppDispatch } from '../../store/hooks'
 import { fetchUser } from '../../store/userSlice'

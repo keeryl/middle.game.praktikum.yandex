@@ -4,6 +4,7 @@ import {
   UserUpdateRequestData,
   UserUpdatePasswordRequestData,
 } from '../../api/UserApi/types'
+import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
 
 class UserController {
   private api: UserApi
@@ -17,7 +18,7 @@ class UserController {
       const res = await this.api.updateUserProfile(data)
       return res
     } catch (e) {
-      alert(e)
+      apiErrorsHandler(e as number)
     }
   }
 
@@ -26,7 +27,7 @@ class UserController {
       const res = await this.api.updateUserPassword(data)
       return res
     } catch (e) {
-      alert(e)
+      apiErrorsHandler(e as number)
     }
   }
 
@@ -35,7 +36,7 @@ class UserController {
       const res = await this.api.updateUserAvatar(data)
       return res
     } catch (e) {
-      alert(e)
+      apiErrorsHandler(e as number)
     }
   }
 }

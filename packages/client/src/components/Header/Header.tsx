@@ -1,10 +1,11 @@
 import React from 'react'
-import { Dropdown, Layout, Menu, MenuProps } from 'antd'
+import { Dropdown, Layout, Menu, MenuProps, Button } from 'antd'
 import s from './styles.module.scss'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { useAppSelector } from '../../store/hooks'
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
 import { selectUserData } from '../../store/userSelectors'
+import { logOut } from '../../store/userSlice'
 
 const navConfig: { label: string; path: string }[] = [
   { label: 'Главная', path: '/' },
@@ -22,34 +23,37 @@ const navItems: MenuProps['items'] = navConfig.map(item => ({
   ),
 }))
 
-const dropDownItems: MenuProps['items'] = [
-  {
-    label: (
-      <Link className={s.navLink} to={'/profile'}>
-        Профиль
-      </Link>
-    ),
-    key: 0,
-  },
-  {
-    label: (
-      <Link className={s.navLink} to={'/register'}>
-        Выход
-      </Link>
-    ),
-    key: 1,
-  },
-]
-
 export const Header = () => {
   const user = useAppSelector(selectUserData)
+  const dispatch = useAppDispatch()
   const { pathname } = useLocation()
   const [currentPath, setCurrentPath] = useState<string>(
     navConfig.find(item => item.path === pathname)?.label as string
   )
 
+  const dropDownItems: MenuProps['items'] = [
+    {
+      label: (
+        <Link className={s.navLink} to={'/profile'}>
+          Профиль
+        </Link>
+      ),
+      key: 0,
+    },
+    {
+      label: (
+        <Button className={s.navLink} onClick={() => dispatch(logOut())}>
+          Выход
+        </Button>
+      ),
+      key: 1,
+    },
+  ]
+
   const onNavItemClick: MenuProps['onClick'] = e => {
-    setCurrentPath(e.key)
+    if (e.key === '0') {
+      setCurrentPath(e.key)
+    }
   }
 
   return (
@@ -62,9 +66,11 @@ export const Header = () => {
         items={navItems}
         className={s.nav}
       />
-      <Dropdown menu={{ items: dropDownItems }}>
-        <div>{!!user && user.login}</div>
-      </Dropdown>
+      {!!user && (
+        <Dropdown menu={{ items: dropDownItems }}>
+          <div>{user.login}</div>
+        </Dropdown>
+      )}
     </Layout.Header>
   )
 }
