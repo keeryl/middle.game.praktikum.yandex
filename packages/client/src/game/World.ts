@@ -129,7 +129,6 @@ export class World {
         bullet.flying = false;
         this.enemies.splice(i, 1);
         gameStore.setGameStateParameters(this);
-        // console.log(gameStore)
         break;
       }
     }

@@ -7,7 +7,7 @@ import { GameState } from './GameEnum'
 
 
 export const Game = () => {
-  const [gameState, setGameState] = useState<string>(GameState.Menu)
+  //const [gameState, setGameState] = useState<string>(GameState.Menu)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   // console.log(gameStore);
   let game: World;
