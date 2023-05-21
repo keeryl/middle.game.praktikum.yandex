@@ -4,6 +4,8 @@ import { Player } from './Player'
 import { Bullet } from './Bullet'
 import { getInitialPositions } from './config'
 import { Tank } from './Tank'
+import { getRandomNumber } from '../utils/getRandomNumber'
+import { gameStore } from '../pages/Game/GameStore'
 
 export class World {
   canvas: HTMLCanvasElement
@@ -12,6 +14,9 @@ export class World {
   player: Player
   enemies: Enemy[]
   bullets: Bullet[]
+  damagies: number;
+  maxDamagies: number;
+  score: number;
 
   constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     this.canvas = canvas
@@ -25,6 +30,9 @@ export class World {
     this.spawnPlayer(canvas, context)
     this.spawnEnemies(canvas, context)
     this.setEventListeners()
+    this.damagies = 0
+    this.maxDamagies = 1
+    this.score = 0
   }
 
   public setEventListeners() {
@@ -55,7 +63,7 @@ export class World {
       }
 
       if (e.code === 'Space') {
-        this.spanBullet(this.canvas, this.context)
+        this.spanBullet(this.canvas, this.context, this.player)
       }
     })
   }
@@ -85,12 +93,15 @@ export class World {
 
   private spanBullet(
     canvas: HTMLCanvasElement,
-    context: CanvasRenderingContext2D
+    context: CanvasRenderingContext2D,
+    shooter:  Enemy | Player
   ) {
-    const bulletStartPosition = this.createBulletStartPosition();
+    if (!shooter) {return}
+    const bulletStartPosition = this.createBulletStartPosition(shooter);
+    //@ts-ignore
     const bullet = new Bullet(canvas, context, bulletStartPosition);
     this.bullets.push(bullet)
-    this.animateBullet(bullet, this.player.direction);
+    this.animateBullet(bullet, shooter.direction);
   }
 
   public animateBullet(bullet: Bullet, bulletDirection: string) {
@@ -117,10 +128,11 @@ export class World {
       if (this.identifyHits(this.enemies[i], bullet, bulletDirection)) {
         bullet.flying = false;
         this.enemies.splice(i, 1);
+        gameStore.setGameStateParameters(this);
+        // console.log(gameStore)
         break;
       }
     }
-
     this.rerender()
 
     if (bullet.flying) {
@@ -135,28 +147,41 @@ export class World {
     }
   }
 
-  private createBulletStartPosition() {
-    if (this.player.direction === 'moveUp') {
+  private enemyShoot() {
+    if (this.enemies.length === 0 ) {return}
+    const waitDelay1 = getRandomNumber(0, 1000);    
+    const waitDelay2 = getRandomNumber(900, 1300);
+    if (waitDelay1>waitDelay2) {
+      const enemyShooter = getRandomNumber(0, this.enemies.length-1);
+      this.spanBullet(this.canvas, this.context, this.enemies[enemyShooter])
+    }
+  }
+
+ 
+
+  private createBulletStartPosition(shooter: Enemy | Player ) {
+    if(!shooter) {return};
+    if (shooter.direction === 'moveUp') {
       return {
-        x: this.player.position.x + (Tank.size - Bullet.size) / 2,
-        y: this.player.position.y,
+        x: shooter.position.x + (Tank.size - Bullet.size) / 2,
+        y: shooter.position.y,
       }
     } else
-      if (this.player.direction === 'moveDown') {
+      if (shooter.direction === 'moveDown') {
         return {
-          x: this.player.position.x + (Tank.size - Bullet.size) / 2,
-          y: this.player.position.y + Tank.size,
+          x: shooter.position.x + (Tank.size - Bullet.size) / 2,
+          y: shooter.position.y + Tank.size,
         }
       } else
-        if (this.player.direction === 'moveLeft') {
+        if (shooter.direction === 'moveLeft') {
           return {
-            x: this.player.position.x,
-            y: this.player.position.y + (Tank.size - Bullet.size) / 2,
+            x: shooter.position.x,
+            y: shooter.position.y + (Tank.size - Bullet.size) / 2,
           }
         } else {
           return {
-            x: this.player.position.x + Tank.size,
-            y: this.player.position.y + (Tank.size - Bullet.size) / 2,
+            x: shooter.position.x + Tank.size,
+            y: shooter.position.y + (Tank.size - Bullet.size) / 2,
           }
         }
   }
@@ -187,13 +212,20 @@ export class World {
     this.enemies.forEach(enemy => enemy.render())
     this.bullets = this.bullets.filter((item) => item.flying);
     this.bullets.forEach(bullet => bullet.render())
+    
+    // console.log(this)
+    // console.log(this.enemies);
   }
 
   public init() {
     requestAnimationFrame(this.loop)
+    gameStore.setGameStateParameters(this)
+    
   }
 
   private loop() {
     requestAnimationFrame(this.loop)
+    this.enemyShoot()
+    
   }
 }

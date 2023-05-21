@@ -8,6 +8,7 @@ export class Enemy extends Tank {
   ) {
     super(canvas, context, position)
     this.position = position
+    this.direction = 'moveDown'
   }
 
   public render() {
