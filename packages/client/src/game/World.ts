@@ -98,7 +98,8 @@ export class World {
     shooter:  Enemy | Player
   ) {
     if (!shooter) {return}
-    const bulletStartPosition = this.createBulletStartPosition(shooter);
+    //@ts-ignore
+    const bulletStartPosition: { x: number; y: number; } = this.createBulletStartPosition(shooter);
     
     const bullet = new Bullet(canvas, context, bulletStartPosition);
     this.bullets.push(bullet)
