@@ -11,7 +11,25 @@ enum GameState {
 
 export const Game = () => {
   const [gameState, setGameState] = useState<string>(GameState.Menu)
+  const [fullScreenMode, setFullScreenMode] = useState<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  document.addEventListener('fullscreenchange', () => {
+    console.log("listener");
+    toggleFullScreen;
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    console.log("work");
+    toggleFullScreen;
+  });
+  document.addEventListener('mozfullscreenchange', () => {
+    console.log("work");
+    toggleFullScreen;
+  });
+  document.addEventListener('MSFullscreenChange', () => {
+    console.log("work");
+    toggleFullScreen;
+  });
 
   useEffect(() => {
     if (gameState === GameState.InProgress) {
@@ -25,6 +43,17 @@ export const Game = () => {
       }
     }
   }, [gameState])
+
+  function toggleFullScreen() {
+    console.log("function");
+    if (!document.fullscreenElement) {
+      setFullScreenMode(true);
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      setFullScreenMode(false);
+      document.exitFullscreen();
+    }
+  }
 
   if (gameState === GameState.Menu) {
     return (
@@ -49,15 +78,21 @@ export const Game = () => {
   }
 
   if (gameState === GameState.InProgress) {
+    console.log("render");
     return (
-      <div className={styles.container}>
+      <div className={fullScreenMode ? styles.fullScreenMode : styles.container}>
         <canvas ref={canvasRef} width={800} height={800} />
         <Button
           type="primary"
-          className={styles.container__button}
+          className={fullScreenMode ? styles.container__buttonInFullScreenMode : styles.container__button}
           onClick={() => setGameState(GameState.Finished)}>
           Завершить
         </Button>
+
+        <img src="/maximize.svg" alt="" className={styles.container__fullScreenImage} onClick={ () => {
+          console.log("click");
+          toggleFullScreen();
+        }} />
       </div>
     )
   }
