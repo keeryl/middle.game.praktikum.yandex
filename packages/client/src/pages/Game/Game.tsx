@@ -2,33 +2,73 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from 'antd'
 import { World } from '../../game/World'
 import styles from './styles.module.scss'
-import { gameStore } from './GameStore'
-import { GameState } from './GameEnum'
+import { GameState } from './GameEnumProps'
 
 
 export const Game = () => {
-  //const [gameState, setGameState] = useState<string>(GameState.Menu)
+  
+  const [gameState, setGameState] = useState<string>(GameState.Menu)
+  const [gameScore, setGameScore] = useState<number>(0)
+  const [gameLevel, setGameLevelState] = useState<number>(1)
+
+  const setGameStateMenu = () => {
+    setGameState(GameState.Menu);
+  }
+  const setGameStateInProgress = () => {
+    setGameState(GameState.InProgress);
+  }
+  const setGameStateFinished = () => {
+    setGameState(GameState.Finished);
+  }
+  const setGameStateGameOver = () => {
+    setGameState(GameState.GameOver);
+  }
+  const setGameStateWaitNextLevel = () => {
+    setGameState(GameState.WaitNextLevel);
+  }
+  const setGameStateNextLevel = () => {
+    setGameState(GameState.NextLevel);
+  }
+  const addScore = () => {
+    const s = gameScore + 1;
+    setGameScore(s)
+    
+  }
+  const setGameLevel = () => {
+    const l = gameLevel + 1
+    setGameLevelState(l)
+  }
+  
+
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  // console.log(gameStore);
   let game: World;
   useEffect(() => {
-    if (gameStore.state === GameState.InProgress) {
+    if (gameState === GameState.InProgress) {
       const canvas = canvasRef.current
       if (canvas) {
         const context = canvas.getContext('2d')
         if (context) {
-          game = new World(canvas, context)
+          game = new World({
+            canvas,
+            context,
+            setGameStateMenu,
+            setGameStateInProgress,
+            setGameStateFinished,
+            setGameStateGameOver,
+            setGameStateWaitNextLevel,
+            setGameStateNextLevel,
+            addScore,
+            gameLevel,
+            setGameLevel
+          })
           game.init()
         }
       }
     }
-    if (gameStore.state === GameState.WaitNextLevel) {
-      console.log(123)
-      }
-  }, [gameStore.state]) //game
+  }, [gameState]) 
   
   
-  if (gameStore.state === GameState.Menu) {
+  if (gameState === GameState.Menu) {
     
     return (
       <section>
@@ -38,9 +78,7 @@ export const Game = () => {
             type="primary"
             className={styles.container__button}
             onClick={() => {
-                gameStore.setGameState(GameState.InProgress)
-                // setGameState(GameState.InProgress)
-              }
+                setGameState(GameState.InProgress)              }
             }>
             Одиночная игра
           </Button>
@@ -55,8 +93,7 @@ export const Game = () => {
     )
   }
 
-  if (gameStore.state === GameState.InProgress) {
-    {console.log(gameStore)}
+  if (gameState === GameState.InProgress) {
     return (
       <div className={styles.container}>
         <canvas ref={canvasRef} width={800} height={800} />
@@ -64,9 +101,9 @@ export const Game = () => {
           type="primary"
           className={styles.container__button}
           onClick={() => {
-            
-            gameStore.setGameState(GameState.Finished)
-            
+            setGameLevelState(1);
+            setGameScore(0);
+            setGameState(GameState.Finished)
           }}>
           Завершить
         </Button>
@@ -74,7 +111,7 @@ export const Game = () => {
     )
   }
 
-  if (gameStore.state === GameState.Finished) {
+  if (gameState === GameState.Finished) {
    
     return (
       <section>
@@ -82,18 +119,21 @@ export const Game = () => {
           <h1 className={styles.container__title}>AWESOME BATTLE CITY</h1>
           <h2 className={styles.container__subtitle}>Игра окончена</h2>
           <p className={styles.container__score}>
-            Счёт: <span>{gameStore.score}</span>
+            Счёт: <span>{gameScore}</span>
           </p>
           <Button
             type="primary"
             className={styles.container__button}
-            onClick={() => gameStore.setGameState(GameState.InProgress)}>
+            onClick={() => {
+              // setGameLevelState(gameLevel-1)
+              setGameState(GameState.InProgress)
+              }}>
             Eщё раз
           </Button>
           <Button
             type="primary"
             className={styles.container__button}
-            onClick={() => gameStore.setGameState(GameState.Menu)}>
+            onClick={() => setGameState(GameState.Menu)}>
             Главное меню
           </Button>
         </div>
@@ -101,31 +141,29 @@ export const Game = () => {
     )
   }
 
-  if (gameStore.state === GameState.WaitNextLevel) {
-    {console.log(gameStore)}
+  if (gameState === GameState.WaitNextLevel) {
     return (
       <section>
         <div className={styles.container}>
           <h1 className={styles.container__title}>AWESOME BATTLE CITY</h1>
           <h2 className={styles.container__subtitle}>Уровень закончен</h2>
           <p className={styles.container__score}>
-            Счёт: <span>{gameStore.score}</span>
+            Счёт: <span>{gameScore}</span>
           </p>
           <Button
             type="primary"
             className={styles.container__button}
             onClick={() => {
-              console.log(gameStore.state)
-              gameStore.setGameState(GameState.InProgress)
-              console.log(gameStore.state)
+              
+              setGameState(GameState.InProgress)
             }
             }>
-            Eщё раз
+            Следующий уровень
           </Button>
           <Button
             type="primary"
             className={styles.container__button}
-            onClick={() => gameStore.setGameState(GameState.Menu)}>
+            onClick={() => setGameState(GameState.Menu)}>
             Главное меню
           </Button>
         </div>
