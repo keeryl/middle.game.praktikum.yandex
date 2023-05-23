@@ -5,9 +5,11 @@ import styles from './login.module.css'
 import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
 import { LOGIN_REGEXP, PASSWORD_REGEXP } from '../../utils/validationRegExps'
 import { authController } from '../../controllers/AuthController'
+import { useAppDispatch } from '../../store/hooks'
+import { fetchUser } from '../../store/userSlice'
 
 const Login = () => {
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -18,8 +20,7 @@ const Login = () => {
       .then(() => {
         message.success('Авторизация прошла успешно', 3)
         setTimeout(() => {
-          authController.fetchUser()
-          navigate('/game')
+          dispatch(fetchUser())
         }, 1000)
       })
       .catch(apiErrorsHandler)
