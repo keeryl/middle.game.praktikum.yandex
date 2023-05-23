@@ -20,7 +20,7 @@ export async function deleteOldCaches() {
   return Promise.all(oldVersions.map(key => caches.delete(key)));
 }
 
-async function cacheResponse(request: Request, event: ExtendableEvent) {
+export async function cacheResponse(request: Request, event: ExtendableEvent) {
     const cache = await caches.open(CACHE_NAME);
     
     const match = await cache.match(request.url);

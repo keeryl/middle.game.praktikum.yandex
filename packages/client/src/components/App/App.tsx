@@ -11,6 +11,8 @@ import { Login } from '../../pages/Login'
 import { Register } from '../../pages/Register'
 import { Profile } from '../../pages/Profile'
 
+import { registerResponseSW } from '../ServiceWorker/ServiceWorker'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -58,5 +60,6 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => {
+  registerResponseSW();
   return <Router router={router} />
 }

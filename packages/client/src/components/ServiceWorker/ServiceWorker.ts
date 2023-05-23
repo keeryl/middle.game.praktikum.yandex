@@ -1,5 +1,4 @@
-export const registerSW = (): void => {
-  console.log('registerSW');
+export const registerResponseSW = (): void => {
   if (location.hostname === "localhost") return;
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw-prod.ts").then(registration => {
