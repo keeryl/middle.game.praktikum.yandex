@@ -94,7 +94,7 @@ export class World {
       }
 
       if (e.code === 'Space') {
-        this.spanBullet(this.canvas, this.context)
+        this.spanBullet(this.canvas, this.context, this.player)
       }
     })
   }
@@ -103,13 +103,11 @@ export class World {
     canvas: HTMLCanvasElement,
     context: CanvasRenderingContext2D
   ) {
-
     this.player = new Player(
       canvas,
       context,
       getInitialPositions().PLAYER
     )
-
     this.player.render()
   }
 
@@ -283,8 +281,7 @@ export class World {
     this.enemies.forEach(enemy => enemy.render())
     this.bullets = this.bullets.filter((item) => item.flying);
     this.bullets.forEach(bullet => bullet.render())
-    
-
+   
   }
 
   public init() {

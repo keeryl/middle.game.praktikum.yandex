@@ -13,7 +13,7 @@ export class Enemy extends Tank {
     this.position = position
     this.direction = 'moveDown'
     this.img = new Image()
-
+  }
 
   public render() {
     this.img.src = src
