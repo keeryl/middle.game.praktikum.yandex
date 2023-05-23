@@ -14,22 +14,14 @@ export const Game = () => {
   const [fullScreenMode, setFullScreenMode] = useState<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  document.addEventListener('fullscreenchange', () => {
-    console.log('listener')
-    toggleFullScreen
-  })
-  document.addEventListener('webkitfullscreenchange', () => {
-    console.log('work')
-    toggleFullScreen
-  })
-  document.addEventListener('mozfullscreenchange', () => {
-    console.log('work')
-    toggleFullScreen
-  })
-  document.addEventListener('MSFullscreenChange', () => {
-    console.log('work')
-    toggleFullScreen
-  })
+  // useEffect(() => {
+  //   document.addEventListener('fullscreenchange', () => {      
+  //     if (!document.fullscreenElement && fullScreenMode) {
+  //       setFullScreenMode(false);
+  //     }
+  //   });
+
+  // }, [])
 
   useEffect(() => {
     if (gameState === GameState.InProgress) {
@@ -45,7 +37,7 @@ export const Game = () => {
   }, [gameState])
 
   function toggleFullScreen() {
-    console.log('function')
+    console.log("click");
     if (!document.fullscreenElement) {
       setFullScreenMode(true)
       document.documentElement.requestFullscreen()
@@ -78,10 +70,9 @@ export const Game = () => {
   }
 
   if (gameState === GameState.InProgress) {
-    console.log('render')
     return (
       <div
-        className={fullScreenMode ? styles.fullScreenMode : styles.container}>
+        className={fullScreenMode ? styles.conteinerFullScreenMode : styles.container}>
         <canvas ref={canvasRef} width={800} height={800} />
         <Button
           type="primary"
@@ -99,7 +90,6 @@ export const Game = () => {
           alt=""
           className={styles.container__fullScreenImage}
           onClick={() => {
-            console.log('click')
             toggleFullScreen()
           }}
         />
