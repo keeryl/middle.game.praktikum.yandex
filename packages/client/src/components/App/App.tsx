@@ -60,6 +60,11 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchUser())
+  }, [])
 
   return <Router router={router} />
 }
