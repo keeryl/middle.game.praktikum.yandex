@@ -68,8 +68,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         //if (action.payload) {
-          state.data = action.payload
-          state.isLoggedIn = true
+        state.data = action.payload
+        state.isLoggedIn = true
         //}
         state.isLoading = false
       })

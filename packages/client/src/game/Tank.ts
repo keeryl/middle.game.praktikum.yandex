@@ -14,30 +14,30 @@ export class Tank {
     this.canvas = canvas
     this.context = context
     this.position = position
-    this.direction = 'moveUp';
+    this.direction = 'moveUp'
   }
 
   public moveUp() {
     if (this.position.y - Tank.step < 0) return
     this.position.y -= Tank.step
-    this.direction = 'moveUp';
+    this.direction = 'moveUp'
   }
 
   public moveDown() {
     if (this.position.y + Tank.step + Tank.size > this.canvas.height) return
     this.position.y += Tank.step
-    this.direction = 'moveDown';
+    this.direction = 'moveDown'
   }
 
   public moveLeft() {
     if (this.position.x - Tank.step < 0) return
     this.position.x -= Tank.step
-    this.direction = 'moveLeft';
+    this.direction = 'moveLeft'
   }
 
   public moveRight() {
     if (this.position.x + Tank.step + Tank.size > this.canvas.width) return
     this.position.x += Tank.step
-    this.direction = 'moveRight';
+    this.direction = 'moveRight'
   }
 }
