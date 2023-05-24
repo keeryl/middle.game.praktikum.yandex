@@ -12,11 +12,13 @@ import { ServerError } from '../../pages/ServerError'
 import { Login } from '../../pages/Login'
 import { Register } from '../../pages/Register'
 import { Profile } from '../../pages/Profile'
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Main />,
+    //element: <ProtectedRoute component={Main}/>,
+    element: <Main/>,
     children: [
       {
         index: true,
@@ -60,11 +62,11 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => {
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    dispatch(fetchUser())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchUser())
+  // }, [])
 
   return <Router router={router} />
 }

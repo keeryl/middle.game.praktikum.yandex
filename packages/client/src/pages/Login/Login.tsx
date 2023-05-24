@@ -10,6 +10,7 @@ import { fetchUser } from '../../store/userSlice'
 
 const Login = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -20,7 +21,8 @@ const Login = () => {
       .then(() => {
         message.success('Авторизация прошла успешно', 3)
         setTimeout(() => {
-          dispatch(fetchUser())
+          //dispatch(fetchUser())
+          navigate('/')
         }, 1000)
       })
       .catch(apiErrorsHandler)

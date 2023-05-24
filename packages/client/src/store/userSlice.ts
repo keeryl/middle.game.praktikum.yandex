@@ -67,8 +67,10 @@ const userSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
-        state.data = action.payload
-        state.isLoggedIn = true
+        //if (action.payload) {
+          state.data = action.payload
+          state.isLoggedIn = true
+        //}
         state.isLoading = false
       })
       .addCase(fetchUser.rejected, state => {
@@ -109,7 +111,9 @@ const userSlice = createSlice({
       })
       .addCase(updateUserAvatar.fulfilled, (state, action) => {
         state.isLoading = false
-        state.data = action.payload
+        if (action.payload) {
+          state.data = action.payload
+        }
       })
       .addCase(updateUserAvatar.rejected, state => {
         state.isLoading = false

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Typography, message } from 'antd'
 import styles from './register.module.css'
 import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
@@ -19,6 +19,7 @@ import { fetchUser } from '../../store/userSlice'
 
 const Register = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -29,7 +30,8 @@ const Register = () => {
       .then(() => {
         message.success('Регистрация прошла успешно', 3)
         setTimeout(() => {
-          dispatch(fetchUser())
+          //dispatch(fetchUser())
+          navigate('/')
         }, 1000)
       })
       .catch(apiErrorsHandler)

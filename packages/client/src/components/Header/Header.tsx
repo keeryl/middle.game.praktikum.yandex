@@ -42,9 +42,9 @@ export const Header = () => {
     },
     {
       label: (
-        <Button className={s.navLink} onClick={() => dispatch(logOut())}>
+        <Link className={s.navLink} to='/login' onClick={() => dispatch(logOut())}>
           Выход
-        </Button>
+        </Link>
       ),
       key: 1,
     },
