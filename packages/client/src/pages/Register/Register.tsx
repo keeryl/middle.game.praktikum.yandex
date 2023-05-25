@@ -15,7 +15,6 @@ import {
 import { authController } from '../../controllers/AuthController'
 import { SignupData } from '../../api/AuthApi/types'
 import { useAppDispatch } from '../../store/hooks'
-import { fetchUser } from '../../store/userSlice'
 
 const Register = () => {
   const dispatch = useAppDispatch()
@@ -30,7 +29,6 @@ const Register = () => {
       .then(() => {
         message.success('Регистрация прошла успешно', 3)
         setTimeout(() => {
-          //dispatch(fetchUser())
           navigate('/')
         }, 1000)
       })

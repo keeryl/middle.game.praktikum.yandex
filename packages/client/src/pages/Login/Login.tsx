@@ -6,7 +6,6 @@ import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
 import { LOGIN_REGEXP, PASSWORD_REGEXP } from '../../utils/validationRegExps'
 import { authController } from '../../controllers/AuthController'
 import { useAppDispatch } from '../../store/hooks'
-import { fetchUser } from '../../store/userSlice'
 
 const Login = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +20,6 @@ const Login = () => {
       .then(() => {
         message.success('Авторизация прошла успешно', 3)
         setTimeout(() => {
-          //dispatch(fetchUser())
           navigate('/')
         }, 1000)
       })
