@@ -51,22 +51,6 @@ export class World {
         this.player.moveRight()
       }
 
-      /*
-      if (e.code === 'ArrowUp' || e.code === 'ArrowDown' || e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
-        for (let i = 0; i < this.enemies.length; i++) {
-          if (this.identifyHits(this.enemies[i], this.player, this.player.direction)) {
-            const savedPlayerDirection = this.player.direction
-            this.tankGoBack();
-            this.player.direction = savedPlayerDirection;
-            break;
-          }
-        }
-        this.rerender();
-      }
-
-      if (e.code === 'Space') {
-        this.spanBullet(this.canvas, this.context, this.player)
-*/
       if (
         e.code === 'ArrowUp' ||
         e.code === 'ArrowDown' ||
@@ -129,13 +113,12 @@ export class World {
     const bulletStartPosition: { x: number; y: number } =
       this.createBulletStartPosition(shooter)
 
-    const bullet = new Bullet(canvas, context, bulletStartPosition)
+    const bullet = new Bullet(this.canvas, this.context, bulletStartPosition)
     this.bullets.push(bullet)
     this.animateBullet(bullet, shooter.direction)
   }
 
   public animateBullet(bullet: Bullet, bulletDirection: string) {
-    // bullet[bulletDirection]();
     switch (bulletDirection) {
       case 'moveUp':
         bullet.moveUp()
@@ -153,6 +136,7 @@ export class World {
 
     for (let i = 0; i < this.enemies.length; i++) {
       if (this.identifyHits(this.enemies[i], bullet, bulletDirection)) {
+        // this.rerender()
         bullet.flying = false
         this.enemies.splice(i, 1)
         this.CurrentGameProps.addScore()
@@ -162,13 +146,14 @@ export class World {
         }
         break
       }
+      this.rerender()
     }
-    this.rerender()
-
+    
     if (bullet.flying) {
       requestAnimationFrame(
         this.animateBullet.bind(this, bullet, bulletDirection)
       )
+      
     }
   }
 
@@ -222,30 +207,7 @@ export class World {
         y: shooter.position.y + (Tank.size - Bullet.size) / 2,
       }
     }
-    /*
-  private createBulletStartPosition() {
-    if (this.player.direction === 'moveUp') {
-      return {
-        x: this.player.position.x + (Tank.size - Bullet.size) / 2,
-        y: this.player.position.y,
-      }
-    } else if (this.player.direction === 'moveDown') {
-      return {
-        x: this.player.position.x + (Tank.size - Bullet.size) / 2,
-        y: this.player.position.y + Tank.size,
-      }
-    } else if (this.player.direction === 'moveLeft') {
-      return {
-        x: this.player.position.x,
-        y: this.player.position.y + (Tank.size - Bullet.size) / 2,
-      }
-    } else {
-      return {
-        x: this.player.position.x + Tank.size,
-        y: this.player.position.y + (Tank.size - Bullet.size) / 2,
-      }
-    }
-*/
+    
   }
 
   private tankGoBack() {
