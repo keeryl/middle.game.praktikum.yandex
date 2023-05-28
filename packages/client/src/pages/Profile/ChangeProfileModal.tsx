@@ -1,4 +1,13 @@
-import { Form, Modal, Input, Button, Upload, message, UploadFile } from 'antd'
+import {
+  Form,
+  Modal,
+  Input,
+  Button,
+  Upload,
+  message,
+  UploadFile,
+  Space,
+} from 'antd'
 import { UploadChangeParam } from 'antd/es/upload'
 import { LAYOUT, USER_DATA, TAIL_LAYOUT } from './const'
 import { ModalChangeProfileProps } from './types'

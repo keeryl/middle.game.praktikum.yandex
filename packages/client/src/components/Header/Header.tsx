@@ -1,85 +1,108 @@
-import React from 'react'
-import { Dropdown, Layout, Menu, MenuProps, Button } from 'antd'
+import { Dropdown, Layout, Menu, MenuProps, Button, Space } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
 import s from './styles.module.scss'
-import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../store/hooks'
-import { selectUserData, selectIsLoggedIn } from '../../store/userSelectors'
+import {
+  selectUserData,
+  selectIsLoggedIn,
+  selectUserisLoading,
+} from '../../store/userSelectors'
 import { logOut } from '../../store/userSlice'
 
-const navConfig: { label: string; path: string }[] = [
-  { label: 'Об игре', path: '/' },
-  { label: 'Форум', path: '/forum' },
-  { label: 'Лидерборд', path: '/leaderboard' },
-  { label: 'Играть', path: '/game' },
-]
-
-const navItems: MenuProps['items'] = navConfig.map(item => ({
-  key: item.label,
-  label: (
-    <Link className={s.navLink} to={item.path}>
-      {item.label}
-    </Link>
-  ),
-}))
-
 export const Header = () => {
+  const navigate = useNavigate()
   const user = useAppSelector(selectUserData)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const isLoading = useAppSelector(selectUserisLoading)
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
-  const [currentPath, setCurrentPath] = useState<string>(
-    navConfig.find(item => item.path === pathname)?.label as string
-  )
 
-  const dropDownItems: MenuProps['items'] = [
+  const navItems: MenuProps['items'] = [
     {
       label: (
-        <Link className={s.navLink} to={'/profile'}>
-          Профиль
+        <Link className={s.navLink} to="/">
+          Главная
         </Link>
       ),
-      key: 0,
+      key: '/',
     },
     {
       label: (
-        <Link className={s.navLink} to="/" onClick={() => dispatch(logOut())}>
-          Выход
+        <Link className={s.navLink} to="/forum">
+          Форум
         </Link>
       ),
-      key: 1,
+      key: '/forum',
+    },
+    {
+      label: (
+        <Link className={s.navLink} to="/leaderboard">
+          Лидерборд
+        </Link>
+      ),
+      key: '/leaderboard',
+    },
+    {
+      label: (
+        <Link className={s.navLink} to="/game">
+          Игра
+        </Link>
+      ),
+      key: '/game',
     },
   ]
 
-  const onNavItemClick: MenuProps['onClick'] = e => {
-    if (e.key === '0') {
-      setCurrentPath(e.key)
-    }
-  }
+  const dropDownItems: MenuProps['items'] = [
+    {
+      label: <Link to={'/profile'}>Профиль</Link>,
+      key: 'profile',
+    },
+    {
+      label: (
+        <Link to="/" onClick={() => dispatch(logOut())}>
+          Выход
+        </Link>
+      ),
+      key: 'logout',
+      danger: true,
+    },
+  ]
 
   return (
     <Layout.Header className={s.header}>
-      <div>LOGO</div>
+      <div className={s.logo} onClick={() => navigate('/')}>
+        GoodGame
+      </div>
 
       {isLoggedIn && (
         <Menu
           mode={'horizontal'}
-          selectedKeys={[currentPath]}
-          onClick={onNavItemClick}
+          selectedKeys={[pathname]}
           items={navItems}
           className={s.nav}
         />
       )}
 
-      {isLoggedIn ? (
-        !!user && (
-          <Dropdown menu={{ items: dropDownItems }}>
-            <div>{user.login}</div>
-          </Dropdown>
-        )
-      ) : (
-        <Link to="/login">Войти</Link>
-      )}
+      {isLoggedIn
+        ? !!user && (
+            <Dropdown className={s.navLink} menu={{ items: dropDownItems }}>
+              <Space>
+                {user.login}
+                <DownOutlined />
+              </Space>
+            </Dropdown>
+          )
+        : !isLoading && (
+            <Space>
+              <Button type="primary" onClick={() => navigate('/login')}>
+                Войти
+              </Button>
+              <Button onClick={() => navigate('/register')}>
+                Зарегистрироваться
+              </Button>
+            </Space>
+          )}
     </Layout.Header>
   )
 }

@@ -10,17 +10,13 @@ import { Login } from '../../pages/Login'
 import { Register } from '../../pages/Register'
 import { Profile } from '../../pages/Profile'
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
-import { useAppSelector } from '../../store/hooks'
-import { selectIsLoggedIn } from '../../store/userSelectors'
 
 export const App = () => {
-  const isLoggedIn = useAppSelector(selectIsLoggedIn)
-
   return (
     <>
       <Routes>
         <Route element={<Main />}>
-          <Route path="/" element={<Landing />} />
+          <Route index path="/" element={<Landing />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/forum" element={<Forum />} />
             <Route path="/leaderboard" element={<Leaderboard />} />

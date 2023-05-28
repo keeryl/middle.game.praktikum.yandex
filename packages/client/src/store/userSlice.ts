@@ -54,7 +54,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     isLoggedIn: false,
-    isLoading: false,
+    isLoading: true,
   } as UserState,
   reducers: {
     someFutureReducer: () => {
@@ -70,6 +70,8 @@ const userSlice = createSlice({
         if (action.payload) {
           state.data = action.payload
           state.isLoggedIn = true
+        } else {
+          state.isLoggedIn = false
         }
         state.isLoading = false
       })
