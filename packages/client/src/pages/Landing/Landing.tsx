@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Button } from 'antd'
 import { UserCircle } from '../../components/UI/Avatar'
 import styles from './styles.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 const DEVELOPMENT_TEAM = [
   { name: 'Пронин Игорь', src: '' },
@@ -16,6 +17,7 @@ const SUPPORT_TEAM = [
 ]
 
 export const Landing: FC = () => {
+  const navigate = useNavigate()
   return (
     <div>
       <div className={styles.container}>
@@ -30,7 +32,8 @@ export const Landing: FC = () => {
         <Button
           type="primary"
           size="large"
-          className={styles.container__button}>
+          className={styles.container__button}
+          onClick={() => navigate('/game')}>
           Играть
         </Button>
 

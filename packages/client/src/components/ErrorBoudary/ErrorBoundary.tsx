@@ -26,7 +26,9 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <main className={styles.main}>
-          <h1 className={styles.title}>Сорян, произошла ошибка</h1>
+          <h1 className={styles.title}>
+            Сорян, произошла ошибка. Перезагрузите страницу
+          </h1>
         </main>
       )
     }

@@ -10,7 +10,7 @@ export const Main = () => {
 
   useEffect(() => {
     dispatch(fetchUser())
-  }, [])
+  }, [dispatch])
 
   return (
     <div className={s.main}>

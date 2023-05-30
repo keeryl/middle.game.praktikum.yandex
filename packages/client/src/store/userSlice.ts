@@ -54,7 +54,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     isLoggedIn: false,
-    isLoading: false,
+    isLoading: true,
   } as UserState,
   reducers: {
     someFutureReducer: () => {
@@ -67,10 +67,12 @@ const userSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
-        //if (action.payload) {
-        state.data = action.payload
-        state.isLoggedIn = true
-        //}
+        if (action.payload) {
+          state.data = action.payload
+          state.isLoggedIn = true
+        } else {
+          state.isLoggedIn = false
+        }
         state.isLoading = false
       })
       .addCase(fetchUser.rejected, state => {
