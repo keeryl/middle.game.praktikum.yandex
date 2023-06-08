@@ -55,7 +55,6 @@ async function startServer() {
 
         template = await vite!.transformIndexHtml(url, template)
       }
-
       let render: () => Promise<string>
 
       if (!isDev()) {

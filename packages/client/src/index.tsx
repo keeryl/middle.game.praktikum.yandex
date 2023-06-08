@@ -7,23 +7,13 @@ import { ErrorBoundary } from './components/ErrorBoudary'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 
-// ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-//   <ErrorBoundary>
-//     <Provider store={store}>
-//       <BrowserRouter>
-//         <App />
-//       </BrowserRouter>
-//     </Provider>
-//   </ErrorBoundary>
-// )
-
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <ErrorBoundary>
-    <Provider store={store}>
-      {/* <BrowserRouter> */}
-        <App />
-      {/* </BrowserRouter> */}
-    </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
   </ErrorBoundary>
 )
