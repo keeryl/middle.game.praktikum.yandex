@@ -16,7 +16,7 @@
   background: rgba(235, 235, 235, 0.75);
   backdrop-filter: blur(0.5px);
   border-radius: 16px;
-  padding: 0 32px;
+  padding: 15px 32px;
 }
 
 .title {
@@ -27,6 +27,7 @@
   font-weight: 500;
   font-size: 32px;
   line-height: 38px;
+  margin: 0;
 }
 
 .input {
@@ -41,6 +42,41 @@
   line-height: 19px;
   background: #407bff;
   border-radius: 8px;
+}
+
+.ya_button {
+  box-sizing: border-box;
+  padding: 9px 24px;
+  width: 100%;
+  gap: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  background: #000;
+  border-radius: 8px;
+  color: #fff;
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.ya_button:hover {
+  opacity: 0.7;
+}
+
+.ya_logo {
+  width: 24px;
+  height: 24px;
+  background-image: url(../../assets/images/Yandex_btn_logo.png);
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .button:hover {
