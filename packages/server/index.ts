@@ -55,6 +55,14 @@ async function startServer() {
 
         template = await vite!.transformIndexHtml(url, template)
       }
+
+      interface SSRModule {
+        render: (
+          uri: string,
+          repository: any
+        ) => Promise<[Record<string, any>, string]>
+      }
+
       let render: () => Promise<string>
 
       if (!isDev()) {
