@@ -14,10 +14,8 @@ import {
 } from '../../utils/validationRegExps'
 import { authController } from '../../controllers/AuthController'
 import { SignupData } from '../../api/AuthApi/types'
-import { useAppDispatch } from '../../store/hooks'
 
 const Register = () => {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
