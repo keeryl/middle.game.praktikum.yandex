@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from 'antd'
 import { World } from '../../game/World'
 import styles from './styles.module.scss'
@@ -14,14 +14,9 @@ export const Game = () => {
   const [fullScreenMode, setFullScreenMode] = useState<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  // useEffect(() => {
-  //   document.addEventListener('fullscreenchange', () => {      
-  //     if (!document.fullscreenElement && fullScreenMode) {
-  //       setFullScreenMode(false);
-  //     }
-  //   });
-
-  // }, [])
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', exitHandler); 
+  }, [])
 
   useEffect(() => {
     if (gameState === GameState.InProgress) {
@@ -37,7 +32,6 @@ export const Game = () => {
   }, [gameState])
 
   function toggleFullScreen() {
-    console.log("click");
     if (!document.fullscreenElement) {
       setFullScreenMode(true)
       document.documentElement.requestFullscreen()
@@ -45,6 +39,14 @@ export const Game = () => {
       setFullScreenMode(false)
       document.exitFullscreen()
     }
+  }
+
+  function exitHandler() {
+    console.log("listener", fullScreenMode);  
+    // if (!document.fullscreenElement) {
+    //   if (fullScreenMode) {
+    //   }
+    // }
   }
 
   if (gameState === GameState.Menu) {
