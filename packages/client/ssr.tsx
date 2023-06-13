@@ -16,6 +16,7 @@ export async function render(uri, repository) {
   if (loader) {
     await loader(store.dispatch)
   }
+  
   const initialState = store.getState()
   const renderResult = renderToString(
     <StaticRouter location={uri}>

@@ -1,7 +1,9 @@
-import dotenv from 'dotenv'
-import cors from 'cors'
-import { createServer as createViteServer } from 'vite'
-import type { ViteDevServer } from 'vite'
+import dotenv from 'dotenv';
+import cors from 'cors';
+import { createServer as createViteServer } from 'vite';
+import type { ViteDevServer } from 'vite';
+// const store = require("../client/src/store/store");
+import { store } from "../client/src/store/store";
 
 dotenv.config()
 
@@ -20,6 +22,7 @@ async function startServer() {
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('client'))
   const ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
+  const initialStore = store.getState()
 
   if (isDev()) {
     vite = await createViteServer({
@@ -60,21 +63,30 @@ async function startServer() {
         render: (
           uri: string,
           repository: any
-        ) => Promise<[Record<string, any>, string]>
+        ) =>  Promise<string>
       }
 
-      let render: () => Promise<string>
+      let mod: SSRModule
 
-      if (!isDev()) {
-        render = (await import(ssrClientPath)).render
+      if (isDev()) {
+        mod = (await vite!.ssrLoadModule(
+          path.resolve(srcPath, 'ssr.tsx')
+        )) as SSRModule
       } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render
+        mod = await import(ssrClientPath)
       }
 
-      const appHtml = await render()
+      const { render } = mod
+      const [initialState, appHtml] = await render(
+        url,
+        initialStore
+      )
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const initStateSerialized = JSON.stringify(initialState)
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace('<!--store-data-->', initStateSerialized);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
