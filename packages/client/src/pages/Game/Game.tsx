@@ -63,6 +63,14 @@ export const Game = () => {
     }
   }, [gameState])
 
+  const stub = () => {
+    return;
+  };
+  
+  document.addEventListener('pointerlockchange', stub, false);
+
+ 
+
   if (gameState === GameState.Menu) {
     return (
       <section>
