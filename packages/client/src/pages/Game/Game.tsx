@@ -2,17 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from 'antd'
 import { World } from '../../game/World'
 import styles from './styles.module.scss'
-
-enum GameState {
-  Menu = 'Menu',
-  InProgress = 'InProgress',
-  Finished = 'Finished',
-}
+import { GameState } from './GameEnumProps'
 
 export const Game = () => {
   const [gameState, setGameState] = useState<string>(GameState.Menu)
   const [fullScreenMode, setFullScreenMode] = useState<boolean>(false)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const exitHandler = useCallback(() => {
     if (!document.fullscreenElement) {
@@ -30,13 +24,57 @@ export const Game = () => {
     }
   }, [exitHandler])
 
+  const [gameScore, setGameScore] = useState<number>(0)
+  const [gameLevel, setGameLevelState] = useState<number>(1)
+
+  const setGameStateMenu = () => {
+    setGameState(GameState.Menu)
+  }
+  const setGameStateInProgress = () => {
+    setGameState(GameState.InProgress)
+  }
+  const setGameStateFinished = () => {
+    setGameState(GameState.Finished)
+  }
+  const setGameStateGameOver = () => {
+    setGameState(GameState.GameOver)
+  }
+  const setGameStateWaitNextLevel = () => {
+    setGameState(GameState.WaitNextLevel)
+  }
+  const setGameStateNextLevel = () => {
+    setGameState(GameState.NextLevel)
+  }
+  const addScore = () => {
+    const s = gameScore + 1
+    setGameScore(s)
+  }
+  const setGameLevel = () => {
+    const l = gameLevel + 1
+    setGameLevelState(l)
+  }
+
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  let game: World
   useEffect(() => {
     if (gameState === GameState.InProgress) {
       const canvas = canvasRef.current
       if (canvas) {
         const context = canvas.getContext('2d')
         if (context) {
-          const game = new World(canvas, context)
+          game = new World({
+            canvas,
+            context,
+            setGameStateMenu,
+            setGameStateInProgress,
+            setGameStateFinished,
+            setGameStateGameOver,
+            setGameStateWaitNextLevel,
+            setGameStateNextLevel,
+            addScore,
+            gameLevel,
+            setGameLevel,
+          })
           game.init()
         }
       }
@@ -61,7 +99,9 @@ export const Game = () => {
           <Button
             type="primary"
             className={styles.container__button}
-            onClick={() => setGameState(GameState.InProgress)}>
+            onClick={() => {
+              setGameState(GameState.InProgress)
+            }}>
             Одиночная игра
           </Button>
           <Button type="primary" className={styles.container__button} disabled>
@@ -82,12 +122,14 @@ export const Game = () => {
         <canvas ref={canvasRef} width={800} height={800} />
         <Button
           type="primary"
-          className={
-            fullScreenMode
+          className={            fullScreenMode
               ? styles.container__buttonInFullScreenMode
-              : styles.container__button
-          }
-          onClick={() => setGameState(GameState.Finished)}>
+              : styles.container__button}
+          onClick={() => {
+            setGameLevelState(1)
+            setGameScore(0)
+            setGameState(GameState.Finished)
+          }}>
           Завершить
         </Button>
 
@@ -110,13 +152,44 @@ export const Game = () => {
           <h1 className={styles.container__title}>AWESOME BATTLE CITY</h1>
           <h2 className={styles.container__subtitle}>Игра окончена</h2>
           <p className={styles.container__score}>
-            Счёт: <span>770</span>
+            Счёт: <span>{gameScore}</span>
           </p>
           <Button
             type="primary"
             className={styles.container__button}
-            onClick={() => setGameState(GameState.InProgress)}>
+            onClick={() => {
+              // setGameLevelState(gameLevel-1)
+              setGameState(GameState.InProgress)
+            }}>
             Eщё раз
+          </Button>
+          <Button
+            type="primary"
+            className={styles.container__button}
+            onClick={() => setGameState(GameState.Menu)}>
+            Главное меню
+          </Button>
+        </div>
+      </section>
+    )
+  }
+
+  if (gameState === GameState.WaitNextLevel) {
+    return (
+      <section>
+        <div className={styles.container}>
+          <h1 className={styles.container__title}>AWESOME BATTLE CITY</h1>
+          <h2 className={styles.container__subtitle}>Уровень закончен</h2>
+          <p className={styles.container__score}>
+            Счёт: <span>{gameScore}</span>
+          </p>
+          <Button
+            type="primary"
+            className={styles.container__button}
+            onClick={() => {
+              setGameState(GameState.InProgress)
+            }}>
+            Следующий уровень
           </Button>
           <Button
             type="primary"

@@ -22,6 +22,7 @@ export class AuthApi {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     }).then(this.checkResponse)
   }
 
@@ -32,6 +33,7 @@ export class AuthApi {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     }).then(this.checkResponse)
   }
 

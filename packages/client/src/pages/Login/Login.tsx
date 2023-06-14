@@ -5,11 +5,10 @@ import styles from './login.module.css'
 import { apiErrorsHandler } from '../../utils/apiErrorsHandler'
 import { LOGIN_REGEXP, PASSWORD_REGEXP } from '../../utils/validationRegExps'
 import { authController } from '../../controllers/AuthController'
-import { useAppDispatch } from '../../store/hooks'
-import { fetchUser } from '../../store/userSlice'
+import { oauthController } from '../../controllers/OAuthController/OAuthController'
 
 const Login = () => {
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -20,13 +19,27 @@ const Login = () => {
       .then(() => {
         message.success('Авторизация прошла успешно', 3)
         setTimeout(() => {
-          dispatch(fetchUser())
+          navigate('/')
         }, 1000)
       })
       .catch(apiErrorsHandler)
       .finally(() => {
         setIsLoading(false)
       })
+  }
+
+  const handleOAuth = () => {
+    oauthController
+      .getServiceId()
+      .then(res => {
+        if (res) {
+          console.log('res', res)
+          window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${
+            res.service_id
+          }&redirect_uri=${encodeURIComponent('http://localhost:3000')}`
+        }
+      })
+      .catch(apiErrorsHandler)
   }
 
   return (
@@ -117,12 +130,19 @@ const Login = () => {
                 }>
                 Войти
               </Button>
-              <Link className={styles.link} to="/register">
-                Еще не зарегистрированы?
-              </Link>
             </>
           )}
         </Form.Item>
+        <button
+          className={styles.ya_button}
+          type="button"
+          onClick={() => handleOAuth()}>
+          <div className={styles.ya_logo}></div>
+          Войти с Яндекс ID
+        </button>
+        <Link className={styles.link} to="/register">
+          Еще не зарегистрированы?
+        </Link>
       </Form>
     </main>
   )

@@ -31,7 +31,7 @@ class AuthController {
       const res = await this.api.fetchUser()
       return res
     } catch (e) {
-      apiErrorsHandler(e as number)
+      console.error(e)
     }
   }
 

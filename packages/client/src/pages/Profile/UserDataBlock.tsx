@@ -1,4 +1,4 @@
-import { Col, Divider, Row, Button, Avatar, Form } from 'antd'
+import { Col, Divider, Row, Button, Avatar, Space, Form } from 'antd'
 import styles from './profile.module.css'
 import { useState } from 'react'
 import { useAppSelector } from '../../store/hooks'
@@ -76,22 +76,25 @@ export const UserDataBlock = () => {
         </Row>
 
         <div className={styles.buttonblock}>
-          <Button
-            className={styles.button}
-            block
-            type="primary"
-            htmlType="submit"
-            onClick={showModalChangeProfile}>
-            Pедактировать
-          </Button>
-          <Button
-            className={styles.button}
-            block
-            type="primary"
-            htmlType="submit"
-            onClick={showModalChangePassword}>
-            Изменить пароль
-          </Button>
+          <Space>
+            <Button
+              className={styles.button}
+              block
+              type="primary"
+              htmlType="submit"
+              onClick={showModalChangeProfile}>
+              Pедактировать
+            </Button>
+            <Button
+              className={styles.button}
+              block
+              type="primary"
+              htmlType="submit"
+              onClick={showModalChangePassword}>
+              Изменить пароль
+            </Button>
+          </Space>
+
           <ChangeProfileModal
             isModalOpenChangeProfile={isModalOpenChangeProfile}
             handleCancelChangeProfile={handleCancelChangeProfile}
