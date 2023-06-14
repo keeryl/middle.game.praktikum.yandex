@@ -14,9 +14,21 @@ export const Game = () => {
   const [fullScreenMode, setFullScreenMode] = useState<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
+  const exitHandler = useCallback(() => {
+    if (!document.fullscreenElement) {
+      if (fullScreenMode) {
+        setFullScreenMode(false)
+      }
+    }
+  }, [fullScreenMode])
+
   useEffect(() => {
     document.addEventListener('fullscreenchange', exitHandler); 
-  }, [])
+
+    return () => {
+      document.removeEventListener('fullscreenchange', exitHandler);
+    }
+  }, [exitHandler])
 
   useEffect(() => {
     if (gameState === GameState.InProgress) {
@@ -39,14 +51,6 @@ export const Game = () => {
       setFullScreenMode(false)
       document.exitFullscreen()
     }
-  }
-
-  function exitHandler() {
-    console.log("listener", fullScreenMode);  
-    // if (!document.fullscreenElement) {
-    //   if (fullScreenMode) {
-    //   }
-    // }
   }
 
   if (gameState === GameState.Menu) {
