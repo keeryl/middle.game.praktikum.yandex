@@ -3,7 +3,7 @@ import cors from 'cors';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 // const store = require("../client/src/store/store");
-import { store } from "../client/src/store/store";
+// import { store } from "../client/src/store/store";
 
 dotenv.config()
 
@@ -18,11 +18,12 @@ async function startServer() {
   app.use(cors())
   const port = Number(process.env.SERVER_PORT) || 3001
 
-  let vite: ViteDevServer | undefined
+  let vite: ViteDevServer; // | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('client'))
   const ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
-  const initialStore = store.getState()
+  // const initialStore = store.getState()
+  let initialStore: any;
 
   if (isDev()) {
     vite = await createViteServer({
