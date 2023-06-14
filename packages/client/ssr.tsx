@@ -1,22 +1,10 @@
 import { renderToString } from 'react-dom/server'
 import { App } from './src/components/App/index'
 import { StaticRouter } from 'react-router-dom/server'
-import { useMatch } from 'react-router-dom'
-// import { createStore } from './src/store/store'
 import { Provider } from 'react-redux'
-import { routes } from './src/routes'
-import { UserApi } from './src/api/UserApi/index'
+import { store } from './src/store/store'
 
-
-export async function render(uri, repository) {
-  // const [pathname] = uri.split('?')
-  let store: any;
-  const currentRoute = routes.find(route => useMatch(route))
-  // const { loader } = currentRoute
-  // if (loader) {
-  //   await loader(store.dispatch)
-  // }
-  
+export async function render(uri: string, repository) {  
   const initialState = store.getState()
   const renderResult = renderToString(
     <StaticRouter location={uri}>
@@ -27,4 +15,3 @@ export async function render(uri, repository) {
   )
   return [initialState, renderResult]
 };
-
