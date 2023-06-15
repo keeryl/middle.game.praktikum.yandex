@@ -1,3 +1,5 @@
+import src from '../assets/images/bullet.png'
+
 export class Bullet {
   canvas: HTMLCanvasElement
   context: CanvasRenderingContext2D
@@ -5,6 +7,7 @@ export class Bullet {
   static step = 20
   static size = 20
   flying: boolean
+  private readonly img: HTMLImageElement
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -15,6 +18,7 @@ export class Bullet {
     this.context = context
     this.position = position
     this.flying = true
+    this.img = new Image()
   }
 
   public moveUp() {
@@ -50,15 +54,12 @@ export class Bullet {
   }
 
   public render() {
-    this.context.beginPath()
-    this.context.rect(
-      this.position.x,
-      this.position.y,
-      Bullet.size,
-      Bullet.size
-    )
-    this.context.fillStyle = 'blue'
-    this.context.fill()
-    this.context.closePath()
+    this.img.src = src
+    this.img.width = Bullet.size
+    this.img.height = Bullet.size
+    this.context.drawImage(this.img, this.position.x, this.position.y);
+    this.img.onload = () => {
+      this.context.drawImage(this.img, this.position.x, this.position.y);
+    }
   }
 }
