@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
-import cors from 'cors';
-import { createServer as createViteServer } from 'vite';
-import type { ViteDevServer } from 'vite';
-// const store = require("../client/src/store/store");
-// import { store } from "../client/src/store/store";
+import dotenv from 'dotenv'
+import cors from 'cors'
+import { createServer as createViteServer } from 'vite'
+import type { ViteDevServer } from 'vite'
 
 dotenv.config()
 
@@ -18,12 +16,10 @@ async function startServer() {
   app.use(cors())
   const port = Number(process.env.SERVER_PORT) || 3001
 
-  let vite: ViteDevServer; // | undefined
+  let vite: ViteDevServer | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('client'))
   const ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
-  // const initialStore = store.getState()
-  let initialStore: any;
 
   if (isDev()) {
     vite = await createViteServer({
@@ -59,35 +55,18 @@ async function startServer() {
 
         template = await vite!.transformIndexHtml(url, template)
       }
+      let render: (url: string) => Promise<string>
 
-      interface SSRModule {
-        render: (
-          uri: string,
-          repository: any
-        ) =>  Promise<string>
-      }
-
-      let mod: SSRModule
-
-      if (isDev()) {
-        mod = (await vite!.ssrLoadModule(
-          path.resolve(srcPath, 'ssr.tsx')
-        )) as SSRModule
+      if (!isDev()) {
+        render = (await import(ssrClientPath)).render
       } else {
-        mod = await import(ssrClientPath)
+        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
+          .render
       }
 
-      const { render } = mod
-      const [initialState, appHtml] = await render(
-        url,
-        initialStore
-      )
+      const appHtml = await render(url)
 
-      const initStateSerialized = JSON.stringify(initialState)
-
-      const html = template
-        .replace(`<!--ssr-outlet-->`, appHtml)
-        .replace('<!--store-data-->', initStateSerialized);
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
