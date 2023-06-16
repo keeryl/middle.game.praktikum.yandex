@@ -64,9 +64,13 @@ async function startServer() {
           .render
       }
 
-      const appHtml = await render(url)
+      const [appHtml, initialState] = await render(url)
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const initStateSerialized = JSON.stringify(initialState)
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(`<!--store-data-->`, initStateSerialized)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {

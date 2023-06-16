@@ -55,6 +55,7 @@ const userSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     isLoading: true,
+    
   } as UserState,
   reducers: {
     someFutureReducer: () => {
