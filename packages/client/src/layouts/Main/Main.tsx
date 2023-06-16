@@ -8,10 +8,9 @@ import { oauthController } from '../../controllers/OAuthController/OAuthControll
 
 export const Main = () => {
   const dispatch = useAppDispatch()
-  const urlParams = new URLSearchParams(window.location.search)
 
   useEffect(() => {
-    console.log(urlParams.get('code'))
+    const urlParams = new URLSearchParams(window.location.search)  
     if (urlParams.get('code')) {
       oauthController
         .signinOAuth({
