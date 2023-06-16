@@ -34,6 +34,7 @@ export const Game = () => {
   const setGameLevel = () => {
     const l = gameLevel + 1
     setGameLevelState(l)
+    document.exitPointerLock()
   }
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -63,6 +64,9 @@ export const Game = () => {
     }
   }, [gameState])
 
+  
+ 
+
   if (gameState === GameState.Menu) {
     return (
       <section>
@@ -90,7 +94,10 @@ export const Game = () => {
   if (gameState === GameState.InProgress) {
     return (
       <div className={styles.container}>
-        <canvas ref={canvasRef} width={800} height={800} />
+        <canvas ref={canvasRef} width={800} height={800} 
+        onClick={() =>{
+          document.body.requestPointerLock();
+        }}/>
         <Button
           type="primary"
           className={styles.container__button}
@@ -118,7 +125,6 @@ export const Game = () => {
             type="primary"
             className={styles.container__button}
             onClick={() => {
-              // setGameLevelState(gameLevel-1)
               setGameState(GameState.InProgress)
             }}>
             Eщё раз
