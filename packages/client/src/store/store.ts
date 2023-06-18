@@ -1,11 +1,28 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice'
+import { UserState } from './userSlice';
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
-})
+export interface StoreState {
+  user: UserState
+}
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export const createStore = (initialState?: any) => {
+  console.log('initialState createStore', initialState)
+  return configureStore({
+    reducer: {
+      user: userReducer,
+    },
+    preloadedState: initialState
+  })
+}
+
+// export const store = configureStore({
+//   reducer: {
+//     user: userReducer,
+//   }
+// })
+
+// export type RootState = ReturnType<typeof store.getState>
+// export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof createStore>['getState']
+export type AppDispatch = ReturnType<typeof createStore>['dispatch']

@@ -5,15 +5,19 @@ import './index.css'
 import { App } from './components/App'
 import { ErrorBoundary } from './components/ErrorBoudary'
 import { Provider } from 'react-redux'
-import { store } from './store/store'
+import { createStore } from './store/store';
+
+const store = createStore(window.__REDUX_STATE__);
+
+delete window.__REDUX_STATE__;
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <ErrorBoundary>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </ErrorBoundary>
 )
