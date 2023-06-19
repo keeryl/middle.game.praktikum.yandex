@@ -1,5 +1,6 @@
 import { RootState } from './store'
 
+//@ts-ignore
 export const selectUser = (state: RootState) => state.user
 export const selectUserData = (state: RootState) => selectUser(state).data
 export const selectIsLoggedIn = (state: RootState) =>
