@@ -6,8 +6,7 @@ export interface StoreState {
   user: UserState
 }
 
-export const createStore = (initialState?: any) => {
-  console.log('initialState createStore', initialState)
+export const createStore = (initialState?: StoreState) => {
   return configureStore({
     reducer: {
       user: userReducer,

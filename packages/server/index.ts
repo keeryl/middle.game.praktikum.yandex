@@ -64,14 +64,7 @@ async function startServer() {
           .render
       }
 
-      const state = {
-        user: {
-          name: 'johnDoe',
-          mail: 'johnDoe@mail.com'
-        }
-      }
-
-      const [appHtml, initialState] = await render(url, state);
+      const [appHtml, initialState] = await render(url, {});
 
       const stateMarkup = `<script>window.__REDUX_STATE__ = ${initialState}</script>`
 
