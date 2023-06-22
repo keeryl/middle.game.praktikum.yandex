@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { createServer as createViteServer } from 'vite'
 import type { ViteDevServer } from 'vite'
+import { startDb } from './db'
 
 dotenv.config()
 
@@ -13,7 +14,15 @@ const isDev = () => process.env.NODE_ENV === 'development'
 
 async function startServer() {
   const app = express()
-  app.use(cors())
+  // app.use(cors())
+  .disable('x-powered-by')
+  .enable('trust proxy')
+  .set('query parser', queryParser)
+  .use(cookieParser())
+  .use(logger)
+  .use(router)
+  .use(notFound); 
+  
   const port = Number(process.env.SERVER_PORT) || 3001
 
   let vite: ViteDevServer | undefined
@@ -81,5 +90,7 @@ async function startServer() {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
   })
 }
+
+startDb()
 
 startServer()
