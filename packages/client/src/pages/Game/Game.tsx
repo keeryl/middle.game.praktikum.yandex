@@ -52,6 +52,7 @@ export const Game = () => {
   const setGameLevel = () => {
     const l = gameLevel + 1
     setGameLevelState(l)
+    document.exitPointerLock()
   }
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -119,7 +120,10 @@ export const Game = () => {
     return (
       <div
         className={fullScreenMode ? styles.conteinerFullScreenMode : styles.container}>
-        <canvas ref={canvasRef} width={800} height={800} />
+        <canvas ref={canvasRef} width={800} height={800} 
+        onClick={() =>{
+          document.body.requestPointerLock();
+        }}/>
         <Button
           type="primary"
           className={            fullScreenMode
@@ -158,7 +162,6 @@ export const Game = () => {
             type="primary"
             className={styles.container__button}
             onClick={() => {
-              // setGameLevelState(gameLevel-1)
               setGameState(GameState.InProgress)
             }}>
             Eщё раз
