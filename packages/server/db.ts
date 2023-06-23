@@ -1,5 +1,10 @@
 
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { Topic } from './models/topic';
+import { Comment } from './models/comment';
+import { Reply } from './models/reply';
+import { Reaction } from './models/reaction';
+import { ReactionType } from './models/reactionType';
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env
 
 const sequelizeOptions: SequelizeOptions = {
@@ -11,7 +16,9 @@ const sequelizeOptions: SequelizeOptions = {
     dialect: 'postgres',
 };
 
-export const sequelize = new Sequelize(sequelizeOptions); 
+export const sequelize = new Sequelize(sequelizeOptions);
+
+sequelize.addModels([Topic, Comment, Reply, Reaction, ReactionType])
 
 export async function dbConnect() {
     try {

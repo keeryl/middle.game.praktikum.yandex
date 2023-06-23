@@ -3,6 +3,9 @@ import cors from 'cors'
 import { createServer as createViteServer } from 'vite'
 import type { ViteDevServer } from 'vite'
 import { dbConnect } from './db'
+import { router } from './router'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
@@ -18,6 +21,19 @@ async function startServer() {
   const port = Number(process.env.SERVER_PORT) || 3001
   
   await dbConnect();
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    })
+  )
+  app.use(cookieParser())
+  app.use(router);
+
 
   let vite: ViteDevServer | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
@@ -79,6 +95,8 @@ async function startServer() {
       next(e)
     }
   })
+
+
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
