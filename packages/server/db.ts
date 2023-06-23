@@ -5,6 +5,7 @@ import { Comment } from './models/comment';
 import { Reply } from './models/reply';
 import { Reaction } from './models/reaction';
 import { ReactionType } from './models/reactionType';
+import { User } from './models/user';
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env
 
 const sequelizeOptions: SequelizeOptions = {
@@ -18,7 +19,7 @@ const sequelizeOptions: SequelizeOptions = {
 
 export const sequelize = new Sequelize(sequelizeOptions);
 
-sequelize.addModels([Topic, Comment, Reply, Reaction, ReactionType])
+sequelize.addModels([Topic, Comment, Reply, Reaction, ReactionType, User])
 
 export async function dbConnect() {
     try {
