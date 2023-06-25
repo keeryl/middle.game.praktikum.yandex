@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { createTopic, getAllTopics, getTopic, deleteTopic, updateTopic } from './controllers/topic';
 import { checkAuth } from './middlewares/checkAuth';
+import { themesRoutes } from "./routes/themesRouter";
 
 const router = express.Router();
 const middlewares = [
@@ -14,5 +15,7 @@ router.get(`/api/forum/topics`, ...middlewares, getAllTopics);
 router.get(`/api/forum/topics/:id`, ...middlewares, getTopic);
 router.put(`/api/forum/topics/:id`, ...middlewares, updateTopic);
 router.delete(`/api/forum/topics/:id`, ...middlewares, deleteTopic);
+
+themesRoutes(router);
 
 export { router };

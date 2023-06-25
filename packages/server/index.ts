@@ -17,15 +17,7 @@ const isDev = () => process.env.NODE_ENV === 'development'
 
 async function startServer() {
   const app = express()
-  // app.use(cors())
-  .disable('x-powered-by')
-  .enable('trust proxy')
-  .set('query parser', queryParser)
-  .use(cookieParser())
-  .use(logger)
-  .use(router)
-  .use(notFound); 
-  
+  app.use(cors())
   const port = Number(process.env.SERVER_PORT) || 3001
   
   await dbConnect();
@@ -104,13 +96,9 @@ async function startServer() {
     }
   })
 
-
-
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
   })
 }
-
-startDb()
 
 startServer()

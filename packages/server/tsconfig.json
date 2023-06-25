@@ -16,11 +16,11 @@
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
-    "importsNotUsedAsValues": "error",
+    // "importsNotUsedAsValues": "error",
     "lib": [
       "DOM",
       "es2019",
@@ -37,7 +37,5 @@
       ]
     },
     "outDir": "dist",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
   }
 }
