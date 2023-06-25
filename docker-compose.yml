@@ -5,27 +5,15 @@ services:
     container_name: good-game_db
     restart: always
     image: postgres:15.3-alpine
-    ports:
+    env_file: "./packages/server/.env"
+    ports: 
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
-    environment:
+    environment: 
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-  # client:
-  #   container_name: good-game_client
-  #   image: good-game_client
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.client
-  #   restart: always
-  #   ports:
-  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
-  #   environment:
-  #     CLIENT_PORT: ${CLIENT_PORT}
-      # SERVER_PORT: ${SERVER_PORT}
   server:
     container_name: good-game_server
     image: good-game_server
@@ -35,6 +23,7 @@ services:
     restart: always
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
+    env_file: "./packages/server/.env"
     environment:
       SERVER_PORT: ${SERVER_PORT}
 
