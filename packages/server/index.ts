@@ -19,21 +19,20 @@ async function startServer() {
   const app = express()
   app.use(cors())
   const port = Number(process.env.SERVER_PORT) || 3001
-  
-  await dbConnect();
+
+  await dbConnect()
   app.use(
     '/api/v2',
     createProxyMiddleware({
       changeOrigin: true,
       cookieDomainRewrite: {
-        '*': '',
+        '*': 'localhost',
       },
       target: 'https://ya-praktikum.tech',
     })
   )
   app.use(cookieParser())
-  app.use(router);
-
+  app.use(router)
 
   let vite: ViteDevServer | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
@@ -95,8 +94,6 @@ async function startServer() {
       next(e)
     }
   })
-
-
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)

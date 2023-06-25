@@ -1,35 +1,41 @@
 import {
-  AllowNull, AutoIncrement, Column,
-  DataType, ForeignKey, Model, PrimaryKey, Table,
-} from "sequelize-typescript";
-import { Topic } from "./topic";
+  AllowNull,
+  AutoIncrement,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript'
+import { Topic } from './topic'
 
 @Table({
   timestamps: true,
-  createdAt: "created_at",
+  createdAt: 'created_at',
   updatedAt: false,
-  tableName: "comments",
+  tableName: 'comments',
 })
 export class Comment extends Model<Comment> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-      id: number;
+  id: number
 
   @AllowNull(false)
   @Column(DataType.STRING)
-      message: string;
+  message: string
 
   @AllowNull(true)
   @Column(DataType.INTEGER)
-      parent_id: number;
+  parent_id: number
 
   @AllowNull(true)
   @Column(DataType.INTEGER)
-      user_id: number;
+  user_id: number
 
   @ForeignKey(() => Topic)
   @AllowNull(false)
   @Column(DataType.INTEGER)
-      topic_id: number;
+  topic_id: number
 }
