@@ -27,5 +27,5 @@ services:
     environment:
       SERVER_PORT: ${SERVER_PORT}
 
-  
+
 
