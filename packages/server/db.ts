@@ -10,10 +10,10 @@ const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
 
 const sequelizeOptions: SequelizeOptions = {
   host: 'localhost',
-  port: Number(POSTGRES_PORT) || 5432,
-  username: POSTGRES_USER || 'postgres',
-  password: POSTGRES_PASSWORD || 'postgres',
-  database: POSTGRES_DB || 'postgres',
+  port: Number(POSTGRES_PORT) || 5432, // переменная окружения недоступна, исправил позже
+  username: POSTGRES_USER || 'postgres', // переменная окружения недоступна, исправил позже
+  password: POSTGRES_PASSWORD || 'postgres', // переменная окружения недоступна, исправил позже
+  database: POSTGRES_DB || 'postgres', // переменная окружения недоступна, исправил позже
   dialect: 'postgres',
 }
 
