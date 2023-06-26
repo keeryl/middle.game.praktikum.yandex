@@ -6,8 +6,7 @@ import { StoreState, createStore } from './src/store/store'
 import React from 'react'
 
 export async function render(url: string, state: StoreState) {
-    const store = createStore(state);
-    
+    const store = createStore(state);    
     const appHtml = renderToString(
       <StaticRouter location={url}>
       <Provider store={store}>
