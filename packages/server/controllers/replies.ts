@@ -1,57 +1,57 @@
 import type { Request, Response } from 'express'
-import { Topic } from '../models/topic'
+import { Reply } from '../models/reply'
 
-export function getAllTopics(_: Request, res: Response) {
-  Topic.findAll()
-    .then(topics => {
-      topics
-        ? res.status(200).send(topics)
-        : res.status(404).send('Запись не найдена')
+export function getAllReplies(_: Request, res: Response) {
+  Reply.findAll()
+    .then(replies => {
+      replies
+        ? res.status(200).send(replies)
+        : res.status(404).send('Записи не найдены')
     })
     .catch(err => res.status(500).send(err))
 }
 
-export function getTopic(req: Request, res: Response) {
+export function getReply(req: Request, res: Response) {
   const id = Number(req.params.id)
-  Topic.findOne({
+  Reply.findOne({
     where: { id: id },
   })
-    .then(topic => {
-      topic
-        ? res.status(200).send(topic)
+    .then(reply => {
+      reply
+        ? res.status(200).send(reply)
         : res.status(404).send('Запись не найдена')
     })
     .catch(err => res.status(500).send(err))
 }
 
-export function createTopic(req: Request, res: Response) {
-  Topic.create(req.body)
-    .then(topic => {
-      topic
-        ? res.status(200).send(topic)
+export function createReply(req: Request, res: Response) {
+  Reply.create(req.body)
+    .then(reply => {
+      reply
+        ? res.status(200).send(reply)
         : res.status(400).send('Запись не создана')
     })
     .catch(err => res.status(500).send(err))
 }
 
-export function updateTopic(req: Request, res: Response) {
+export function updateReply(req: Request, res: Response) {
   const id = Number(req.params.id)
-  Topic.update(req.body, { where: { id: id } })
-    .then(topic => {
-      topic
+  Reply.update(req.body, { where: { id: id } })
+    .then(reply => {
+      reply
         ? res.status(200).send('OK')
         : res.status(404).send('Запись не найдена')
     })
     .catch(err => res.status(500).send(err))
 }
 
-export function deleteTopic(req: Request, res: Response) {
+export function deleteReply(req: Request, res: Response) {
   const id = Number(req.params.id)
-  Topic.destroy({
+  Reply.destroy({
     where: { id: id },
   })
-    .then(topic => {
-      topic
+    .then(reply => {
+      reply
         ? res.status(200).send('OK')
         : res.status(404).send('Запись не найдена')
     })

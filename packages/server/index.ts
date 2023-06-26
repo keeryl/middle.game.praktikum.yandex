@@ -19,21 +19,20 @@ async function startServer() {
   const app = express()
   app.use(cors())
   const port = Number(process.env.SERVER_PORT) || 3001
-  
-  await dbConnect();
+
+  await dbConnect()
   app.use(
     '/api/v2',
     createProxyMiddleware({
       changeOrigin: true,
       cookieDomainRewrite: {
-        '*': '',
+        '*': 'localhost',
       },
       target: 'https://ya-praktikum.tech',
     })
   )
   app.use(cookieParser())
-  app.use(router);
-
+  app.use(router)
 
   let vite: ViteDevServer | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
@@ -74,7 +73,7 @@ async function startServer() {
 
         template = await vite!.transformIndexHtml(url, template)
       }
-      let render: (url: string) => Promise<string>
+      let render: (url: string, state: any) => Promise<string>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
@@ -83,9 +82,11 @@ async function startServer() {
           .render
       }
 
-      const appHtml = await render(url)
+      const [appHtml, initialState] = await render(url, {});
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const stateMarkup = `<script>window.__REDUX_STATE__ = ${initialState}</script>`
+
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + stateMarkup)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
@@ -95,8 +96,6 @@ async function startServer() {
       next(e)
     }
   })
-
-
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
