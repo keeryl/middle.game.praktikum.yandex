@@ -55,7 +55,7 @@ async function startServer() {
 
         template = await vite!.transformIndexHtml(url, template)
       }
-      let render: (url: string) => Promise<string>
+      let render: (url: string, state: any) => Promise<string>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
@@ -64,9 +64,11 @@ async function startServer() {
           .render
       }
 
-      const appHtml = await render(url)
+      const [appHtml, initialState] = await render(url, {});
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const stateMarkup = `<script>window.__REDUX_STATE__ = ${initialState}</script>`
+
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + stateMarkup)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
