@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from 'antd'
 import { World } from '../../game/World'
 import styles from './styles.module.scss'
@@ -6,6 +6,24 @@ import { GameState } from './GameEnumProps'
 
 export const Game = () => {
   const [gameState, setGameState] = useState<string>(GameState.Menu)
+  const [fullScreenMode, setFullScreenMode] = useState<boolean>(false)
+
+  const exitHandler = useCallback(() => {
+    if (!document.fullscreenElement) {
+      if (fullScreenMode) {
+        setFullScreenMode(false)
+      }
+    }
+  }, [fullScreenMode])
+
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', exitHandler); 
+
+    return () => {
+      document.removeEventListener('fullscreenchange', exitHandler);
+    }
+  }, [exitHandler])
+
   const [gameScore, setGameScore] = useState<number>(0)
   const [gameLevel, setGameLevelState] = useState<number>(1)
 
@@ -64,8 +82,15 @@ export const Game = () => {
     }
   }, [gameState])
 
-  
- 
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      setFullScreenMode(true)
+      document.documentElement.requestFullscreen()
+    } else if (document.exitFullscreen) {
+      setFullScreenMode(false)
+      document.exitFullscreen()
+    }
+  }
 
   if (gameState === GameState.Menu) {
     return (
@@ -93,14 +118,17 @@ export const Game = () => {
 
   if (gameState === GameState.InProgress) {
     return (
-      <div className={styles.container}>
+      <div
+        className={fullScreenMode ? styles.conteinerFullScreenMode : styles.container}>
         <canvas ref={canvasRef} width={800} height={800} 
         onClick={() =>{
           document.body.requestPointerLock();
         }}/>
         <Button
           type="primary"
-          className={styles.container__button}
+          className={            fullScreenMode
+              ? styles.container__buttonInFullScreenMode
+              : styles.container__button}
           onClick={() => {
             setGameLevelState(1)
             setGameScore(0)
@@ -108,6 +136,15 @@ export const Game = () => {
           }}>
           Завершить
         </Button>
+
+        <img
+          src="/maximize.svg"
+          alt=""
+          className={styles.container__fullScreenImage}
+          onClick={() => {
+            toggleFullScreen()
+          }}
+        />
       </div>
     )
   }
