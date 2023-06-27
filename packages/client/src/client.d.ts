@@ -5,6 +5,6 @@ declare module 'react-email-validator'
 
 declare global {
   interface Window {
-    __REDUX_STATE__?: any;
+    __REDUX_STATE__?: any
   }
 }

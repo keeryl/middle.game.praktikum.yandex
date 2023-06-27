@@ -82,7 +82,7 @@ async function startServer() {
           .render
       }
 
-      const [appHtml, initialState] = await render(url, {});
+      const [appHtml, initialState] = await render(url, {})
 
       const stateMarkup = `<script>window.__REDUX_STATE__ = ${initialState}</script>`
 

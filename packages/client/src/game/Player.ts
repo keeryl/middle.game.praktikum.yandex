@@ -24,7 +24,5 @@ export class Player extends Tank {
     this.img.onload = () => {
       this.context.drawImage(this.img, this.position.x, this.position.y)
     }
-    
-
   }
 }

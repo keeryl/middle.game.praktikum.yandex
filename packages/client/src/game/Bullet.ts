@@ -57,9 +57,9 @@ export class Bullet {
     this.img.src = src
     this.img.width = Bullet.size
     this.img.height = Bullet.size
-    this.context.drawImage(this.img, this.position.x, this.position.y);
+    this.context.drawImage(this.img, this.position.x, this.position.y)
     this.img.onload = () => {
-      this.context.drawImage(this.img, this.position.x, this.position.y);
+      this.context.drawImage(this.img, this.position.x, this.position.y)
     }
   }
 }

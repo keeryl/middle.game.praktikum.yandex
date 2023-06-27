@@ -148,12 +148,11 @@ export class World {
       }
       this.rerender()
     }
-    
+
     if (bullet.flying) {
       requestAnimationFrame(
         this.animateBullet.bind(this, bullet, bulletDirection)
       )
-      
     }
   }
 
@@ -207,7 +206,6 @@ export class World {
         y: shooter.position.y + (Tank.size - Bullet.size) / 2,
       }
     }
-    
   }
 
   private tankGoBack() {

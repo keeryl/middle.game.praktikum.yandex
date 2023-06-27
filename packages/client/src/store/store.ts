@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice'
-import { UserState } from './userSlice';
+import { UserState } from './userSlice'
 
 export interface StoreState {
   user: UserState
@@ -11,7 +11,7 @@ export const createStore = (initialState?: StoreState) => {
     reducer: {
       user: userReducer,
     },
-    preloadedState: initialState
+    preloadedState: initialState,
   })
 }
 

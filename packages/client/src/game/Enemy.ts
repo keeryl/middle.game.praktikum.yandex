@@ -18,7 +18,6 @@ export class Enemy extends Tank {
   }
 
   public render() {
-    
     this.img.src = src
     this.img.width = Tank.size
     this.img.height = Tank.size

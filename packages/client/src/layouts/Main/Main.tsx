@@ -10,7 +10,7 @@ export const Main = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)  
+    const urlParams = new URLSearchParams(window.location.search)
     if (urlParams.get('code')) {
       oauthController
         .signinOAuth({
