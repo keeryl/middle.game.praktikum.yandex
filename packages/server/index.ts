@@ -19,21 +19,6 @@ async function startServer() {
   const app = express()
   app.use(cors())
   const port = Number(process.env.SERVER_PORT) || 3001
-  
-  await dbConnect();
-  app.use(
-    '/api/v2',
-    createProxyMiddleware({
-      changeOrigin: true,
-      cookieDomainRewrite: {
-        '*': '',
-      },
-      target: 'https://ya-praktikum.tech',
-    })
-  )
-  app.use(cookieParser())
-  app.use(router);
-
 
   await dbConnect()
   app.use(
@@ -111,8 +96,6 @@ async function startServer() {
       next(e)
     }
   })
-
-
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)

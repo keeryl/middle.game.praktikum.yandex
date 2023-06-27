@@ -14,6 +14,11 @@ import {
   updateComment,
   deleteComment,
 } from './controllers/comments'
+import {
+  getAllReactionsForComment,
+  createReactionForComment,
+  deleteReactionForComment
+} from './controllers/reaction'
 import { checkAuth } from './middlewares/checkAuth'
 import {
   createReply,
@@ -22,12 +27,6 @@ import {
   getReply,
   updateReply,
 } from './controllers/replies'
-
-import {
-  getAllReactionsForComment,
-  createReactionForComment,
-  deleteReactionForComment
-} from './controllers/reaction'
 
 const router = express.Router()
 const middlewares = [bodyParser.json(), checkAuth]
@@ -51,6 +50,5 @@ router.delete(`/api/forum/replies/:id`, ...middlewares, deleteReply)
 router.get(`/api/forum/comments/:id/reactions`, ...middlewares, getAllReactionsForComment)
 router.post(`/api/forum/comments/:id/reactions`, ...middlewares, createReactionForComment)
 router.delete(`/api/forum/comments/:id/reactions`, ...middlewares, deleteReactionForComment)
-
 
 export { router }
