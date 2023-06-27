@@ -15,7 +15,7 @@ export class Reaction extends Model<Reaction> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-      id: number;
+      override id: number;
 
   @ForeignKey(() => Comment)
   @AllowNull(false)

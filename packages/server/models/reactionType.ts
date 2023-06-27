@@ -11,7 +11,7 @@ export class ReactionType extends Model<ReactionType> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-      id: number;
+      override id: number;
 
   @Length({ max: 255 })
   @AllowNull(false)

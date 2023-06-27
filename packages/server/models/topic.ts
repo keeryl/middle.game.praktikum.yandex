@@ -15,7 +15,7 @@ export class Topic extends Model<Topic> {
     @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)
-      id: number;
+      override id: number;
       
     @Length({ max: MAX_LENGTH })
     @AllowNull(false)

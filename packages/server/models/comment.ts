@@ -14,7 +14,7 @@ export class Comment extends Model<Comment> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-      id: number;
+      override id: number;
 
   @AllowNull(false)
   @Column(DataType.STRING)

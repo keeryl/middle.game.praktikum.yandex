@@ -14,7 +14,7 @@ export class Reply extends Model<Reply> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-      id: number;
+      override id: number;
 
   @AllowNull(false)
   @Column(DataType.STRING)

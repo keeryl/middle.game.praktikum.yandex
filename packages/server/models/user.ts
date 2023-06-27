@@ -13,7 +13,7 @@ export class User extends Model<User> {
     @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)
-      id: number;
+      override id: number;
       
     @AllowNull(false)
     @Column(DataType.STRING)

@@ -8,11 +8,11 @@ import {
     paranoid: true,
     tableName: 'site_theme'
 })
-export class SiteTheme extends Model<SiteTheme> {
+export class SiteTheme extends Model {
     @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)
-    id: number;
+    override id: number;
 
     @Index
     @AllowNull(false)

@@ -12,9 +12,8 @@ export function createTheme(request: Request, response: Response) {
     if (!request.body.theme) {
         response.status(400).send('Неверный запрос')
     } else {
-        // @ts-ignore
         SiteTheme.create({ theme: request.body.theme })
-            .then(value => response.status(200).send('Тема была успешно создана'))
+            .then(() => response.status(200).send('Тема была успешно создана'))
             .catch(err => response.status(500).send(err))
     }
 }
@@ -40,7 +39,6 @@ export function findThemeWithUserId(request: Request, _response: Response) {
 }
 
 export function createUserTheme(request: Request, _response: Response) {
-    //@ts-ignore
     return UserTheme.create({ ownerId: request.body.id, theme: 'light' })
 }
 
@@ -56,9 +54,9 @@ export function getUserTheme(request: Request, response: Response) {
                     throw 'Пустой объект';
                 }
             })
-            .catch(err => {
+            .catch(() => {
                 createUserTheme(request, response)
-                    .then(value => {
+                    .then(() => {
                         response.status(200).send('light')
                     })
                     .catch(err => {

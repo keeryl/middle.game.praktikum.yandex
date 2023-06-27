@@ -1,25 +1,20 @@
 import {
-    AllowNull, AutoIncrement, BelongsTo, Column,
+    AllowNull, AutoIncrement, Column,
     DataType, ForeignKey, Model, PrimaryKey, Table,
 } from "sequelize-typescript";
 import { User } from "./user";
-import { SiteTheme } from "./siteTheme";
 
 @Table({
     timestamps: false,
     paranoid: true,
     tableName: 'user_theme'
 })
-export class UserTheme extends Model<UserTheme> {
+export class UserTheme extends Model {
     @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)
-    id: number;
+    override id: number;
 
-    @ForeignKey(() => SiteTheme)
-    @BelongsTo(() => SiteTheme, {
-        onDelete: "CASCADE",
-    })
     @AllowNull(false)
     @Column(DataType.STRING)
     theme: string;
