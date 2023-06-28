@@ -13,6 +13,7 @@ import {
   getComment,
   updateComment,
   deleteComment,
+  getAllCommentsByTopicId
 } from './controllers/comments'
 import {
   getAllReactionsForComment,
@@ -34,6 +35,7 @@ const middlewares = [bodyParser.json(), checkAuth]
 router.get(`/api/forum/topics`, ...middlewares, getAllTopics)
 router.get(`/api/forum/topics/:id`, ...middlewares, getTopic)
 router.get(`/api/forum/comments/`, ...middlewares, getAllComments)
+router.get(`/api/forum/comments/bytopicid/:topic_id`, ...middlewares, getAllCommentsByTopicId)
 router.get(`/api/forum/comments/:id`, ...middlewares, getComment)
 router.get(`/api/forum/replies/`, ...middlewares, getAllReplies)
 router.get(`/api/forum/replies/:id`, ...middlewares, getReply)

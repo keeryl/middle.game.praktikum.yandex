@@ -32,7 +32,7 @@ export class Topic extends Model<Topic> {
   @Column(DataType.STRING)
   body: string
 
-  @AllowNull(true)
+  @AllowNull(false)
   @Column(DataType.INTEGER)
   user_id: number
 
