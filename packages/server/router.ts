@@ -27,6 +27,8 @@ import {
   getReply,
   updateReply,
 } from './controllers/replies'
+import { themesRoutes } from "./routes/themesRouter";
+
 
 const router = express.Router()
 const middlewares = [bodyParser.json(), checkAuth]
@@ -50,5 +52,7 @@ router.delete(`/api/forum/replies/:id`, ...middlewares, deleteReply)
 router.get(`/api/forum/comments/:id/reactions`, ...middlewares, getAllReactionsForComment)
 router.post(`/api/forum/comments/:id/reactions`, ...middlewares, createReactionForComment)
 router.delete(`/api/forum/comments/:id/reactions`, ...middlewares, deleteReactionForComment)
+
+themesRoutes(router);
 
 export { router }

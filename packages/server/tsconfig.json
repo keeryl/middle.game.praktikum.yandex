@@ -21,12 +21,21 @@
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
     "importsNotUsedAsValues": "error",
-    "lib": ["DOM", "es2019", "esnext.asynciterable"],
-    "types": ["node", "jest"],
+    "lib": [
+      "DOM",
+      "es2019",
+      "esnext.asynciterable"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "baseUrl": ".",
     "paths": {
-      "*": ["types/*"]
+      "*": [
+        "types/*"
+      ]
     },
-    "outDir": "dist"
+    "outDir": "dist",
   }
 }

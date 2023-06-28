@@ -17,7 +17,7 @@ export const Game = () => {
   }, [fullScreenMode])
 
   useEffect(() => {
-    document.addEventListener('fullscreenchange', exitHandler); 
+    document.addEventListener('fullscreenchange', exitHandler);
 
     return () => {
       document.removeEventListener('fullscreenchange', exitHandler);
@@ -120,15 +120,13 @@ export const Game = () => {
     return (
       <div
         className={fullScreenMode ? styles.conteinerFullScreenMode : styles.container}>
-        <canvas ref={canvasRef} width={800} height={800} 
-        onClick={() =>{
-          document.body.requestPointerLock();
-        }}/>
+        <canvas ref={canvasRef} width={800} height={800}
+          onClick={() => {
+            document.body.requestPointerLock();
+          }} />
         <Button
           type="primary"
-          className={            fullScreenMode
-              ? styles.container__buttonInFullScreenMode
-              : styles.container__button}
+          className={ fullScreenMode ? styles.container__buttonInFullScreenMode : styles.container__button }
           onClick={() => {
             setGameLevelState(1)
             setGameScore(0)
