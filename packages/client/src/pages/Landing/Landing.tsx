@@ -5,15 +5,15 @@ import styles from './styles.module.scss'
 import { useNavigate } from 'react-router-dom'
 
 const DEVELOPMENT_TEAM = [
-  { name: 'Пронин Игорь', src: '' },
-  { name: 'Участник 2', src: '' },
-  { name: 'Участник 3', src: '' },
-  { name: 'Участник 4', src: '' },
+  { name: 'Алёна', src: '/img/Alena.png' },
+  { name: 'Никита', src: '/img/Nikita.png' },
+  { name: 'Кирилл', src: '/img/Kirill.png' },
+  { name: 'Игорь', src: '/img/Igor.png' },
 ]
 
 const SUPPORT_TEAM = [
-  { name: 'Участник 1', src: '' },
-  { name: 'Участник 2', src: '' },
+  { name: 'Рома', src: '/img/Roma.png' },
+  { name: 'Вячеслав', src: '/img/Vyacheslav.png' },
 ]
 
 export const Landing: FC = () => {
@@ -22,8 +22,8 @@ export const Landing: FC = () => {
     <div>
       <div className={styles.container}>
         <h1 className={styles.container__title}>
-          ДОБРО ПОЖАЛОВАТЬ
-          <br />В{' '}
+          <span className={styles.container__title__text}>ДОБРО ПОЖАЛОВАТЬ
+          <br />В{' '}</span>
           <span className={styles.container__title__gameName}>
             AWESOME BATTLE CITY
           </span>
@@ -53,7 +53,7 @@ export const Landing: FC = () => {
           }>
           {DEVELOPMENT_TEAM.map(item => {
             return (
-              <div key={item.name}>
+              <div className={styles.container__teamCircles__name} key={item.name}>
                 <UserCircle name={item.name} src={item.src} />
               </div>
             )
@@ -68,7 +68,7 @@ export const Landing: FC = () => {
           }>
           {SUPPORT_TEAM.map(item => {
             return (
-              <div key={item.name}>
+              <div className={styles.container__teamCircles__name} key={item.name}>
                 <UserCircle name={item.name} src={item.src} />
               </div>
             )
