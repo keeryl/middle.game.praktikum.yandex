@@ -11,6 +11,22 @@ export function getAllComments(_: Request, res: Response) {
     .catch(err => res.status(500).send(err))
 }
 
+export function getAllCommentsByTopicId(req: Request, res: Response) {
+  const id = Number(req.params.topic_id);
+  Comment.findAll({
+    where: { topic_id: id },
+    order: [
+      ['created_at', 'DESC' ],]
+  })
+    .then(comments => {
+      comments
+        ? res.status(200).send(comments)
+        : res.status(404).send('Записи не найдены')
+    })
+    .catch(err => res.status(500).send(err))
+}
+
+
 export function getComment(req: Request, res: Response) {
   const id = Number(req.params.id)
   Comment.findOne({

@@ -2,7 +2,10 @@ import type { Request, Response } from 'express'
 import { Topic } from '../models/topic'
 
 export function getAllTopics(_: Request, res: Response) {
-  Topic.findAll()
+  Topic.findAll({ 
+    order: [
+      ['created_at', 'DESC' ],
+    ]})
     .then(topics => {
       topics
         ? res.status(200).send(topics)
@@ -25,6 +28,7 @@ export function getTopic(req: Request, res: Response) {
 }
 
 export function createTopic(req: Request, res: Response) {
+  console.log(req)
   Topic.create(req.body)
     .then(topic => {
       topic

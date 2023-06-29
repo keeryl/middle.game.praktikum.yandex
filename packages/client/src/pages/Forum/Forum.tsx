@@ -1,14 +1,31 @@
-import { Form, Modal, Input, Button, List, Skeleton } from 'antd'
+import { Form, Modal, Input, Button } from 'antd'
 import styles from './forum.module.css'
-import { forumItemData } from './const'
 import { useState } from 'react'
+import { selectUserData } from '../../store/userSelectors'
+import { useAppSelector } from '../../store/hooks'
+import axios from 'axios'
+import { useEffect } from "react";
+import { AXIOS_BASE_URL } from '../../utils/constants'
+import { Topic } from './Topic'
+import { layout, tailLayout } from './const'
+
 
 export const Forum = () => {
-  const count = 3
+
+  const [posts, setPosts] = useState([]);
   const [initLoading, setInitLoading] = useState(false)
+  
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState([])
-  const [list, setList] = useState([])
+
+
+  useEffect(() => {
+    axios.get(`${AXIOS_BASE_URL}/forum/topics`).then((response) => {
+      setPosts(response.data);
+      
+    });
+  },[initLoading] );
+  
+  const user = useAppSelector(selectUserData)
 
   const [isModalOpenAddPost, setIsModalOpenAddPost] = useState(false)
   const showModalAddPost = () => {
@@ -19,59 +36,36 @@ export const Forum = () => {
   }
 
   const onFinishAddPost = (values: unknown) => {
-    console.log(values)
+    console.log(user, values)
+    setInitLoading(true);
+    axios.post(
+      `${AXIOS_BASE_URL}/forum/topics`,
+       {
+      title: values.Description,
+      body: values.Content,
+      user_id: user.id
+    }).then((response) => {
+      setInitLoading(false);
+    });
+    setIsModalOpenAddPost(false)
   }
   const [formAddPost] = Form.useForm()
-  const layout = {
-    labelCol: {
-      span: 8,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  }
-  const tailLayout = {
-    wrapperCol: {
-      offset: 8,
-      span: 16,
-    },
-  }
+ 
 
   return (
     <div className={styles.main}>
-      <div className={styles.button}>
-        <Button
-          className={styles.button}
-          block
-          type="primary"
-          htmlType="submit"
-          onClick={showModalAddPost}>
-          Создать тему
-        </Button>
-      </div>
-      <div className={styles.title}>
-        <List
-          className="demo-loadmore-list"
-          loading={initLoading}
-          itemLayout="horizontal"
-          // loadMore={loadMore}
-          dataSource={forumItemData}
-          renderItem={item => (
-            <List.Item
-              actions={[
-                <a key="list-loadmore-edit">edit</a>,
-                <a key="list-loadmore-more">more</a>,
-              ]}>
-              <Skeleton avatar title={false} loading={false} active>
-                <List.Item.Meta
-                  title={item.description}
-                  description={item.content}
-                />
-              </Skeleton>
-            </List.Item>
-          )}
-        />
-      </div>
+    <div className={styles.button}>
+      <Button
+        className={styles.button}
+        block
+        type="primary"
+        htmlType="submit"
+        onClick={showModalAddPost}
+      >
+        Создать тему
+      </Button>
+    </div>
+     {posts.map(item => <Topic props={item} />)}
       <Modal
         title="Добавить сообщение на форум"
         open={isModalOpenAddPost}
@@ -112,12 +106,15 @@ export const Forum = () => {
             <Input />
           </Form.Item>
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
+          <Button 
+              type="primary"
+              htmlType="submit"
+              onClick={onFinishAddPost}>
               Сохранить
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
+          </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
+  </div>
   )
 }
