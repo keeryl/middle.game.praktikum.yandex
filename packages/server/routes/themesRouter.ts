@@ -15,7 +15,7 @@ export const themesRoutes = (router: Router) => {
         .get('/siteTheme', ...middlewares, getThemes)
         .post('/siteTheme', ...middlewares, createTheme)
         .delete('/siteTheme', ...middlewares, deleteTheme)
-        .get('/userTheme', ...middlewares, getUserTheme)
+        .post('/userTheme', ...middlewares, getUserTheme)
         .put('/userTheme', ...middlewares, updateUserTheme)
 
     router.use('/api/themes', themesRouter);
