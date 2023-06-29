@@ -20,8 +20,11 @@
 }
 
 .nav {
-  flex: auto;
   min-width: 0;
+
+  background-color: var(--background);
+
+  flex: auto;
 }
 
 .navLink {
@@ -35,5 +38,17 @@
 
   &:hover {
     opacity: 0.8;
+  }
+}
+
+.togle {
+  margin-right: 20px;
+
+  &__lightTheme {
+    margin-bottom: -6px;
+  }
+
+  &__darkTheme {
+    margin-top: 1px;
   }
 }
