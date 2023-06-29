@@ -1,9 +1,9 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express'
 
-export function checkAuth (req: Request, res: Response, next: NextFunction) {
+export function checkAuth(req: Request, res: Response, next: NextFunction) {
   if (req.cookies.uuid && req.cookies.authCookie) {
-    next();
+    next()
   } else {
-      res.status(401).send({ message: "Пользователь не авторизован" });
+    res.status(401).send({ message: 'Пользователь не авторизован' })
   }
 }

@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --config vite.config.ts",
+    "build:client": "tsc && vite build --config vite.config.ts",
     "build:ssr": "tsc && vite build --config ssr.config.ts",
+    "build": "yarn build:ssr && yarn build:client",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -14,6 +15,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "1.9.5",
     "antd": "5.4.4",
+    "axios": "1.4.0",
     "dotenv": "16.0.2",
     "eslint-config-prettier": "8.5.0",
     "prettier": "2.7.1",

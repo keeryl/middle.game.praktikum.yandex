@@ -1,33 +1,39 @@
 import {
-  AllowNull, AutoIncrement, Column,
-  DataType, ForeignKey, Model, PrimaryKey, Table,
-} from "sequelize-typescript";
-import { Comment } from "./comment";
-import { ReactionType } from "./reactionType";
+  AllowNull,
+  AutoIncrement,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript'
+import { Comment } from './comment'
+import { ReactionType } from './reactionType'
 
 @Table({
   timestamps: true,
-  createdAt: "created_at",
+  createdAt: 'created_at',
   updatedAt: false,
-  tableName: "reactions",
+  tableName: 'reactions',
 })
 export class Reaction extends Model<Reaction> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-      override id: number;
+  id: number
 
   @ForeignKey(() => Comment)
   @AllowNull(false)
   @Column(DataType.INTEGER)
-      comment_id: number;
+  comment_id: number
 
   @AllowNull(true)
   @Column(DataType.INTEGER)
-      user_id: number;
+  user_id: number
 
   @ForeignKey(() => ReactionType)
   @AllowNull(false)
   @Column(DataType.INTEGER)
-      reaction_type_id: number;
+  reaction_type_id: number
 }
