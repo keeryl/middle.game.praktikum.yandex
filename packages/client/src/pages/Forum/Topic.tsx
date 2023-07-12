@@ -26,7 +26,7 @@ export const Topic = (props: any) => {
       setIsModalOpenAddComment(false)
     }
   
-    const onFinishAddComment = (values: unknown) => {
+    const onFinishAddComment = (values: any) => {
     
       setInitLoadingComment(true);
       axios.post(
@@ -75,7 +75,7 @@ export const Topic = (props: any) => {
             <List.Item>
               <Skeleton avatar title={false} loading={false} active>
                 <List.Item.Meta
-                  description={item.message}
+                  description={(item as any).message}
                 />
               </Skeleton>
             </List.Item>
