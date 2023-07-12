@@ -35,14 +35,14 @@ export const Forum = () => {
     setIsModalOpenAddPost(false)
   }
 
-  const onFinishAddPost = (values: unknown) => {
+  const onFinishAddPost = (values: any) => {
     console.log(user, values)
     setInitLoading(true);
     axios.post(
       `${AXIOS_BASE_URL}/forum/topics`,
        {
-      title: values.Description as any,
-      body: values.Content as any,
+      title: values.Description,
+      body: values.Content,
       user_id: user.id
     }).then((response) => {
       setInitLoading(false);
