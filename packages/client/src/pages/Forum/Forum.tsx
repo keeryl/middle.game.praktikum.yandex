@@ -41,8 +41,8 @@ export const Forum = () => {
     axios.post(
       `${AXIOS_BASE_URL}/forum/topics`,
        {
-      title: values.Description,
-      body: values.Content,
+      title: values.Description as any,
+      body: values.Content as any,
       user_id: user.id
     }).then((response) => {
       setInitLoading(false);
