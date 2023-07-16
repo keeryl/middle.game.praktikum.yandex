@@ -39,5 +39,4 @@ jobs:
           host: 51.250.51.19
           username: goodgame
           password: goodgame
-          port: 22
           script: whoami
