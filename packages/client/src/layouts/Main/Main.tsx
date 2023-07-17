@@ -15,7 +15,7 @@ export const Main = () => {
       oauthController
         .signinOAuth({
           code: urlParams.get('code') || '',
-          redirect_uri: 'http://localhost:3000',
+          redirect_uri: 'http://51.250.51.19:3000',
         })
         .then(() => {
           dispatch(fetchUser())
