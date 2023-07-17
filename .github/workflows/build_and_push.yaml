@@ -45,6 +45,9 @@ jobs:
             IMAGE=$(sudo docker images -q ghcr.io/${{env.OWNER_LC}}/${{github.event.repository.name}}/server)
             echo "Image with server: $IMAGE"
             
+            echo "Set MTU before pulling"
+            sudo netplan set ethernets.eth0.mtu=1450 && sudo netplan apply
+            
             echo "Pull new server image from Github Container Registry" 
             for n in {1..5}; do sudo docker pull ghcr.io/${{env.OWNER_LC}}/${{github.event.repository.name}}/server:${{github.sha}} && break; done
             
