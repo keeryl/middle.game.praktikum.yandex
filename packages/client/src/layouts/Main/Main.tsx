@@ -15,7 +15,7 @@ export const Main = () => {
       oauthController
         .signinOAuth({
           code: urlParams.get('code') || '',
-          redirect_uri: 'http://51.250.51.19:3000',
+          redirect_uri: 'https://good-game.ya-praktikum.tech',
         })
         .then(() => {
           dispatch(fetchUser())
