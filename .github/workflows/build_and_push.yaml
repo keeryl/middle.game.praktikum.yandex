@@ -49,9 +49,8 @@ jobs:
             for n in {1..5}; do sudo docker pull ghcr.io/${{env.OWNER_LC}}/${{github.event.repository.name}}/server:${{github.sha}} && break; done
             
             echo "Remove docker container with previous version of server"
-            sudo docker stop $CONTAINER
-            sudo docker rm $CONTAINER
-            sudo docker rmi $IMAGE
+            if [ ! "$CONTAINER" ]; then sudo docker stop $CONTAINER && sudo docker rm $CONTAINER; fi
+            if [ ! "$IMAGE" ]; then sudo docker rmi $IMAGE; fi
             
             echo "Run new container"
             sudo docker run -d -p 3001:3001 --name prakticum-server ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
