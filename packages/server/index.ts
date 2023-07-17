@@ -30,7 +30,7 @@ async function startServer() {
       createProxyMiddleware({
         changeOrigin: true,
         cookieDomainRewrite: {
-          '*': '51.250.51.19',
+          '*': 'good-game.ya-praktikum.tech',
         },
         target: 'https://ya-praktikum.tech',
       })
