@@ -36,9 +36,10 @@ jobs:
       - name: Update container with server on Yandex Cloud Virtual Machine
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: 51.250.51.19
-          username: goodgame
-          password: goodgame
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.KEY }}
           script: |
             CONTAINER=$(sudo docker ps -a -q --filter="name=prakticum-server") 
             echo "Container with server: $CONTAINER"
