@@ -39,7 +39,7 @@ jobs:
           host: 51.250.120.43
           username: goodgame
           debug: true
-          key: >
+          key: |
             -----BEGIN OPENSSH PRIVATE KEY-----
             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
             NhAAAAAwEAAQAAAYEAv5gxHiWnfSJUy6Mft53QHR8u8YsrYx239iotVI54sPk63P5r3bq1
