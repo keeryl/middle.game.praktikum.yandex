@@ -10,8 +10,8 @@ import {
 } from '../../store/userSelectors'
 import { logOut } from '../../store/userSlice'
 import { useCallback, useEffect, useState } from 'react'
-import light from "../../../public/img/light.svg"
-import dark from "../../../public/img/dark.svg"
+import light from "../../../public/img/light.png"
+import dark from "../../../public/img/dark.png"
 import { themeController } from '../../controllers/ThemeController'
 
 export const Header = () => {
