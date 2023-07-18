@@ -36,9 +36,9 @@ jobs:
       - name: Update container with server on Yandex Cloud Virtual Machine
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
+          host: 51.250.120.43
+          username: goodgame
+          password: goodgame
           key: >
             -----BEGIN OPENSSH PRIVATE KEY-----
             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
