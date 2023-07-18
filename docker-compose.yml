@@ -15,19 +15,20 @@ services:
   #   environment:
   #     - CLIENT_PORT=${CLIENT_PORT}
   #     - SERVER_PORT=${SERVER_PORT}
-  # server:
-  #   container_name: good-game_server
-  #   image: good-game_server
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.server
-  #     args:
-  #       SERVER_PORT: ${SERVER_PORT}
-  #   restart: always
-  #   ports:
-  #     - '${SERVER_PORT}:${SERVER_PORT}'
-  #   environment:
-  #     SERVER_PORT: ${SERVER_PORT}
+
+  server:
+    container_name: good-game_server
+    image: good-game_server
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+      args:
+        SERVER_PORT: ${SERVER_PORT}
+    restart: always
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
 
   postgres:
     container_name: good-game_db
