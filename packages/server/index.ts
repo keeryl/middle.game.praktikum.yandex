@@ -5,6 +5,7 @@ import { dbConnect } from './db'
 import { router } from './router'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import cookieParser from 'cookie-parser'
+import helmet from "helmet";
 
 
 import express from 'express'
@@ -23,6 +24,7 @@ const isDev = () => process.env.NODE_ENV === 'development'
 
 async function startServer() {
   app.use(cors());
+  app.use(helmet());
   try {
     await dbConnect()
     app.use(
