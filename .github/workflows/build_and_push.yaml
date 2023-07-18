@@ -18,27 +18,26 @@ jobs:
           echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
         env:
           OWNER: '${{ github.repository_owner }}'
-#      - name: Login to GitHub Container Registry
-#        uses: docker/login-action@v1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Build and push server image
-#        uses: docker/build-push-action@v2
-#        with:
-#          context: .
-#          file: Dockerfile.server
-#          push: true
-#          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+      - name: Build and push server image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.server
+          push: true
+          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
       
       - name: Update container with server on Yandex Cloud Virtual Machine
         uses: appleboy/ssh-action@master
         with:
-          host: 51.250.120.43
+          host: good-game.ya-praktikum.tech
           username: goodgame
-          debug: true
           key: |
             -----BEGIN OPENSSH PRIVATE KEY-----
             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
