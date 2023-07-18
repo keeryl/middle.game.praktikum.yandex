@@ -29,7 +29,7 @@ export class OAuthApi {
   public getServiceId() {
     return fetch(
       `${this.baseUrl}/yandex/service-id?redirect_uri=${encodeURIComponent(
-        'http://localhost:3000'
+        'https://good-game.ya-praktikum.tech'
       )}`,
       {
         method: 'GET',

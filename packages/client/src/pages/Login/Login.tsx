@@ -36,7 +36,7 @@ const Login = () => {
           console.log('res', res)
           window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${
             res.service_id
-          }&redirect_uri=${encodeURIComponent('http://localhost:3000')}`
+          }&redirect_uri=${encodeURIComponent('https://good-game.ya-praktikum.tech')}`
         }
       })
       .catch(apiErrorsHandler)

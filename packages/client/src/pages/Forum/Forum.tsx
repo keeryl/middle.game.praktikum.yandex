@@ -35,7 +35,7 @@ export const Forum = () => {
     setIsModalOpenAddPost(false)
   }
 
-  const onFinishAddPost = (values: unknown) => {
+  const onFinishAddPost = (values: any) => {
     console.log(user, values)
     setInitLoading(true);
     axios.post(

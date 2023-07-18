@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
-      - feature/tgg-65
 
 jobs:
   build-and-push:
@@ -33,5 +31,34 @@ jobs:
           file: Dockerfile.server
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
-
-          
+      
+      - name: Update container with server on Yandex Cloud Virtual Machine
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USER}}
+          key: ${{secrets.KEY}}
+          script: |
+            CONTAINER=$(sudo docker ps -a -q --filter="name=prakticum-server") 
+            echo "Container with server: $CONTAINER"
+            IMAGE=$(sudo docker images -q ghcr.io/${{env.OWNER_LC}}/${{github.event.repository.name}}/server)
+            echo "Image with server: $IMAGE"
+            
+            echo "Set MTU before pulling"
+            sudo netplan set ethernets.eth0.mtu=1450 && sudo netplan apply
+            
+            echo "Pull new server image from Github Container Registry" 
+            for n in {1..5}; do sudo docker pull ghcr.io/${{env.OWNER_LC}}/${{github.event.repository.name}}/server:${{github.sha}} && break; done
+            
+            echo "Remove docker container with previous version of server"
+            sudo docker stop $CONTAINER
+            sudo docker rm $CONTAINER
+            sudo docker rmi $IMAGE
+            
+            echo "Run new container"
+            sudo docker run -d -p 3001:3001 --name prakticum-server ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+            
+            echo "Show images"
+            sudo docker image ls
+            echo "Show container"
+            sudo docker ps -a
