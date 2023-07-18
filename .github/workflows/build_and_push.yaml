@@ -36,7 +36,7 @@ jobs:
       - name: Update container with server on Yandex Cloud Virtual Machine
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
+          host: 51.250.120.43
           username: goodgame
           debug: true
           key: >
