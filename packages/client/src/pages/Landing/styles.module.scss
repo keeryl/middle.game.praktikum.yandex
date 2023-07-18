@@ -1,0 +1,108 @@
+.container {
+  width: 60%;
+  margin: 0 auto;
+  padding: 147px 0 74px;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 56px;
+    color: var(--text-black);
+
+    &__text {
+      color: var(--text);
+    }
+
+    &__gameName {
+      color: var(--text-blue);
+    }
+  }
+
+  &__button {
+    width: 345px;
+    height: 43px;
+    margin-top: 32px;
+    margin-bottom: 132px;
+  }
+
+  &__subtitle {
+    margin: 0 0 132px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--text);
+  }
+
+  &__team {
+    margin: 0 auto 37px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--text);
+
+    align-self: center;
+  }
+
+  &__teamCircles {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    &__name {
+      span {
+        color: var(--text);
+      }
+    }
+  }
+
+  &__developmentTeam {
+    margin-bottom: 137px;
+  }
+
+  &__supportTeam {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    &__title {
+      font-size: 36px;
+    }
+
+    &__subtitle {
+      font-size: 20px;
+    }
+
+    &__team {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    &__button {
+      width: 250px;
+    }
+  }
+}
