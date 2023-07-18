@@ -18,20 +18,20 @@ jobs:
           echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
         env:
           OWNER: '${{ github.repository_owner }}'
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push server image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.server
-          push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+#      - name: Build and push server image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: Dockerfile.server
+#          push: true
+#          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
       
       - name: Update container with server on Yandex Cloud Virtual Machine
         uses: appleboy/ssh-action@v0.1.10
@@ -39,7 +39,45 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
-          key: ${{ secrets.KEY }}
+          key: >
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            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
+            -----END OPENSSH PRIVATE KEY-----
           script: |
             CONTAINER=$(sudo docker ps -a -q --filter="name=prakticum-server") 
             echo "Container with server: $CONTAINER"
