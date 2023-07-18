@@ -38,7 +38,6 @@ jobs:
         with:
           host: 51.250.120.43
           username: goodgame
-          password: goodgame
           key: >
             -----BEGIN OPENSSH PRIVATE KEY-----
             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
