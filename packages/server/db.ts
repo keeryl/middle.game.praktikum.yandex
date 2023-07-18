@@ -10,7 +10,7 @@ import { UserTheme } from './models/userTheme';
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env
 
 const sequelizeOptions: SequelizeOptions = {
-  host: 'https://good-game.ya-praktikum.tech',
+  host: 'good-game.ya-praktikum.tech',
   port: Number(POSTGRES_PORT) || 5432, // переменная окружения недоступна, исправил позже
   username: POSTGRES_USER || 'admin', // переменная окружения недоступна, исправил позже
   password: POSTGRES_PASSWORD || 'root', // переменная окружения недоступна, исправил позже
