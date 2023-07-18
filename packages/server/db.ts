@@ -12,9 +12,9 @@ const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process
 const sequelizeOptions: SequelizeOptions = {
   host: 'good-game.ya-praktikum.tech',
   port: Number(POSTGRES_PORT) || 5432, // переменная окружения недоступна, исправил позже
-  username: POSTGRES_USER || 'admin', // переменная окружения недоступна, исправил позже
-  password: POSTGRES_PASSWORD || 'root', // переменная окружения недоступна, исправил позже
-  database: POSTGRES_DB || 'good-game', // переменная окружения недоступна, исправил позже
+  username: POSTGRES_USER || 'postgres', // переменная окружения недоступна, исправил позже
+  password: POSTGRES_PASSWORD || 'postgres', // переменная окружения недоступна, исправил позже
+  database: POSTGRES_DB || 'postgres', // переменная окружения недоступна, исправил позже
   dialect: 'postgres',
 }
 
