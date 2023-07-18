@@ -34,7 +34,7 @@ jobs:
 #          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
       
       - name: Update container with server on Yandex Cloud Virtual Machine
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@master
         with:
           host: 51.250.120.43
           username: goodgame
