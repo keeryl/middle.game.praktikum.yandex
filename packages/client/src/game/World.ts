@@ -39,16 +39,21 @@ export class World {
   public setEventListeners() {
     document.addEventListener('keydown', e => {
       if (e.code === 'ArrowUp') {
-        this.player.moveUp()
+        this.player.moveUp();
+        this.player.turn('up');
+
       }
       if (e.code === 'ArrowDown') {
-        this.player.moveDown()
+        this.player.moveDown();
+        this.player.turn('down');
       }
       if (e.code === 'ArrowLeft') {
-        this.player.moveLeft()
+        this.player.moveLeft();
+        this.player.turn('left');
       }
       if (e.code === 'ArrowRight') {
-        this.player.moveRight()
+        this.player.moveRight();
+        this.player.turn('right');
       }
 
       if (
@@ -121,16 +126,20 @@ export class World {
   public animateBullet(bullet: Bullet, bulletDirection: string) {
     switch (bulletDirection) {
       case 'moveUp':
-        bullet.moveUp()
+        bullet.moveUp();
+        bullet.turn('up');
         break
       case 'moveDown':
-        bullet.moveDown()
+        bullet.moveDown();
+        bullet.turn('down');
         break
       case 'moveLeft':
-        bullet.moveLeft()
+        bullet.moveLeft();
+        bullet.turn('left');
         break
       case 'moveRight':
-        bullet.moveRight()
+        bullet.moveRight();
+        bullet.turn('right');
         break
     }
 
